@@ -25,6 +25,8 @@ public class Layout extends JFrame{
 		c = (Container)getContentPane();
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		splitPane2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		splitPane.setDividerLocation(200);
+		splitPane2.setDividerLocation(520);
 		c.add(splitPane);
 		splitPane.setContinuousLayout(true); //연속적인 레이아웃 기능 활성화
         splitPane.setLeftComponent(new LeftPane()); //좌측 컴포넌트 장착
@@ -34,7 +36,7 @@ public class Layout extends JFrame{
         splitPane.setRightComponent(splitPane2);
 		createMenu();
 		createToolBar();
-		setSize(1000,1000);
+		setSize(1000,900);
 		setVisible(true);
 	}
 	
