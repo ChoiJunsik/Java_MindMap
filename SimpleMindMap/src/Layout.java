@@ -42,7 +42,7 @@ public class Layout extends JFrame{
         splitPane.setRightComponent(splitPane2);
 		createMenu();
 		createToolBar();
-		setSize(1000,900);
+		setSize(1200,800);
 		setVisible(true);
 	}
 	

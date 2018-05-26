@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 
 public class Node extends JLabel{
 	MouseListener ml = new MouseListener();
-    Point mouseClickedLocation = new Point(0, 0);
     Node(String name){
 		setOpaque(true);
 		setBackground(Color.BLUE);
@@ -22,17 +21,16 @@ class MouseListener extends MouseAdapter{
 	int x,y;
 
 	public void mousePressed(MouseEvent e) {
-		Node node = (Node)e.getSource();
-		node.setBackground(Color.BLACK);
-		node.mouseClickedLocation.x = e.getX();
-        node.mouseClickedLocation.y = e.getY();
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		Node node = (Node)e.getSource();
-		node.setLocation(e.getLocationOnScreen().x - node.mouseClickedLocation.x -210,
-	                e.getLocationOnScreen().y - node.mouseClickedLocation.y -100);
+		Point endP = e.getPoint();
+        JLabel la = (JLabel)e.getSource();
+        Point p = la.getLocation();
+        
+        la.setLocation(p.x+endP.x - (int)la.getWidth()/2, p.y+ endP.y - (int)la.getHeight()/2);
+        la.getParent().repaint();
 	}
 
 	@Override
@@ -46,10 +44,14 @@ class MouseListener extends MouseAdapter{
 	public void mouseReleased(MouseEvent e) {}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {
+		setBackground(Color.BLACK);
+	}
 
 	@Override
-	public void mouseExited(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {
+		setBackground(Color.BLUE);
+	}
 
 }
 
