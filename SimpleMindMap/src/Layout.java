@@ -1,7 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,6 +22,9 @@ import javax.swing.SwingConstants;
 public class Layout extends JFrame{
 	Container c;
     JSplitPane splitPane,splitPane2;
+    CenterPane centerPane = new CenterPane();
+    LeftPane leftPane = new LeftPane();
+	RightPane rightPane = new RightPane();
 	public Layout() {
 		setTitle("SimpleMindMap");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,10 +35,10 @@ public class Layout extends JFrame{
 		splitPane2.setDividerLocation(520);
 		c.add(splitPane);
 		splitPane.setContinuousLayout(true); //¿¬¼ÓÀûÀÎ ·¹ÀÌ¾Æ¿ô ±â´É È°¼ºÈ­
-        splitPane.setLeftComponent(new LeftPane()); //ÁÂÃø ÄÄÆ÷³ÍÆ® ÀåÂø
+		splitPane.setLeftComponent(leftPane); //ÁÂÃø ÄÄÆ÷³ÍÆ® ÀåÂø
         splitPane2.setContinuousLayout(true);
-        splitPane2.setLeftComponent(new CenterPane());
-        splitPane2.setRightComponent(new RightPane());
+        splitPane2.setLeftComponent(new JScrollPane(centerPane));
+        splitPane2.setRightComponent(rightPane);
         splitPane.setRightComponent(splitPane2);
 		createMenu();
 		createToolBar();
@@ -68,18 +74,31 @@ public class Layout extends JFrame{
 		}
 		class LeftPane extends JPanel{
 			JTextArea textArea = new JTextArea();
-			public LeftPane() {
+			String [] contents;
+			public LeftPane() {	
 				setLayout(new BorderLayout());
+				textArea.setTabSize(2);
 				add(new JScrollPane(textArea),BorderLayout.CENTER);
 				JButton btn = new JButton("Àû¿ë");
+				btn.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						centerPane.removeAll();
+						contents = textArea.getText().split("\n\t");
+						Node node = new Node(contents[0]);
+						node.setLocation(300,300);
+						node.setSize(40,40);
+						centerPane.add(node);
+						centerPane.revalidate();
+						centerPane.repaint();
+					}
+				});
 				add(btn,BorderLayout.SOUTH);
 			}
 		}
 		class CenterPane extends JPanel{
-			JPanel jp = new JPanel();
 			public CenterPane() {
-				setLayout(new BorderLayout());
-				add(new JScrollPane(jp),BorderLayout.CENTER);
+				setLayout(null);
 			}
 		}
 		class RightPane extends JPanel{
