@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -41,7 +40,12 @@ class MouseListener extends MouseAdapter{
 	public void mouseClicked(MouseEvent e) {}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {
+		Node node = (Node) e.getSource();
+		//RightPane.getJTextField().setText(node.getText());
+		Layout.RightPane.immutable.setText(node.getText());
+		Layout.RightPane.x.setText(Double.toString(getLocation().getX()));
+	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {

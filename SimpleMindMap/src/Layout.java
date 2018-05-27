@@ -1,10 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,8 +36,8 @@ public class Layout extends JFrame{
 		splitPane.setDividerLocation(200);
 		splitPane2.setDividerLocation(520);
 		c.add(splitPane);
-		splitPane.setContinuousLayout(true); //¿¬¼ÓÀûÀÎ ·¹ÀÌ¾Æ¿ô ±â´É È°¼ºÈ­
-		splitPane.setLeftComponent(leftPane); //ÁÂÃø ÄÄÆ÷³ÍÆ® ÀåÂø
+		splitPane.setContinuousLayout(true); //ì—°ì†ì ì¸ ë ˆì´ì•„ì›ƒ ê¸°ëŠ¥ í™œì„±í™”
+		splitPane.setLeftComponent(leftPane); //ì¢Œì¸¡ ì»´í¬ë„ŒíŠ¸ ì¥ì°©
         splitPane2.setContinuousLayout(true);
         splitPane2.setLeftComponent(new JScrollPane(centerPane));
         splitPane2.setRightComponent(rightPane);
@@ -49,26 +51,26 @@ public class Layout extends JFrame{
 		void createMenu() {
 			JMenuBar mb = new JMenuBar();
 			mb.setBackground(Color.GRAY);
-			mb.add(new JMenu("»õ·Î ¸¸µé±â"));
-			mb.add(new JMenu("¿­±â"));
-			mb.add(new JMenu("ÀúÀå"));
-			mb.add(new JMenu("´Ù¸¥ ÀÌ¸§À¸·Î ÀúÀå"));
-			mb.add(new JMenu("´İ±â"));
-			mb.add(new JMenu("Àû¿ë"));
-			mb.add(new JMenu("º¯°æ"));
+			mb.add(new JMenu("ìƒˆë¡œ ë§Œë“¤ê¸°"));
+			mb.add(new JMenu("ì—´ê¸°"));
+			mb.add(new JMenu("ì €ì¥"));
+			mb.add(new JMenu("ë‹¤ë¥¸ ì´ë¦„ìœ¼ë¡œ ì €ì¥"));
+			mb.add(new JMenu("ë‹«ê¸°"));
+			mb.add(new JMenu("ì ìš©"));
+			mb.add(new JMenu("ë³€ê²½"));
 			
 			setJMenuBar(mb);
 		}
 		void createToolBar() {
 			JToolBar toolBar = new JToolBar();
 			toolBar.setFloatable(false );
-			toolBar.add(new JButton("»õ·Î ¸¸µé±â"));
-			toolBar.add(new JButton("¿­±â"));
-			toolBar.add(new JButton("ÀúÀå"));
-			toolBar.add(new JButton("´Ù¸¥ ÀÌ¸§À¸·Î ÀúÀå"));
-			toolBar.add(new JButton("´İ±â"));
-			toolBar.add(new JButton("Àû¿ë"));
-			toolBar.add(new JButton("º¯°æ"));
+			toolBar.add(new JButton("ìƒˆë¡œ ë§Œë“¤ê¸°"));
+			toolBar.add(new JButton("ì—´ê¸°"));
+			toolBar.add(new JButton("ì €ì¥"));
+			toolBar.add(new JButton("ë‹¤ë¥¸ ì´ë¦„ìœ¼ë¡œ ì €ì¥"));
+			toolBar.add(new JButton("ë‹«ê¸°"));
+			toolBar.add(new JButton("ì ìš©"));
+			toolBar.add(new JButton("ë³€ê²½"));
 			
 			c.add(toolBar,BorderLayout.NORTH);
 		}
@@ -79,7 +81,7 @@ public class Layout extends JFrame{
 				setLayout(new BorderLayout());
 				textArea.setTabSize(2);
 				add(new JScrollPane(textArea),BorderLayout.CENTER);
-				JButton btn = new JButton("Àû¿ë");
+				JButton btn = new JButton("ì ìš©");
 				btn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
@@ -101,30 +103,38 @@ public class Layout extends JFrame{
 				setLayout(null);
 			}
 		}
-		class RightPane extends JPanel{
+		static class RightPane extends JPanel{
 			JPanel jp = new JPanel();
+			static JTextField immutable = new JTextField(10);
+			static JTextField x = new JTextField(10);
+			static JTextField y = new JTextField(10);
+			static JTextField w = new JTextField(10);
+			static JTextField h = new JTextField(10);
+			static JTextField c = new JTextField(10);
 			public RightPane() {
 				setLayout(new BorderLayout());
 				add(new JScrollPane(jp),BorderLayout.CENTER);
 				jp.setLayout(new GridLayout(6,2,20,20));
 				jp.add(new JLabel("TEXT: ",SwingConstants.CENTER));
-				JTextField immutable = new JTextField(10);
 				immutable.setEditable(false);
 				jp.add(immutable);
 				jp.add(new JLabel("X: ",SwingConstants.CENTER));
-				jp.add(new JTextField(10));
+				jp.add(x);
 				jp.add(new JLabel("Y: ",SwingConstants.CENTER));
-				jp.add(new JTextField(10));
+				jp.add(y);
 				jp.add(new JLabel("W: ",SwingConstants.CENTER));
-				jp.add(new JTextField(10));
+				jp.add(w);
 				jp.add(new JLabel("H: ",SwingConstants.CENTER));
-				jp.add(new JTextField(10));
+				jp.add(h);
 				jp.add(new JLabel("Color: ",SwingConstants.CENTER));
-				jp.add(new JTextField(10));
-				JButton btn = new JButton("º¯°æ");
+				jp.add(c);
+				JButton btn = new JButton("ë³€ê²½");
 				add(btn,BorderLayout.SOUTH);
 			}
 		}
+		
+		
+	
 		
 		
 }
