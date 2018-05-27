@@ -9,7 +9,7 @@ public class Node extends JLabel{
 	MouseListener ml = new MouseListener();
     Node(String name){
 		setOpaque(true);
-		setBackground(Color.BLUE);
+		setBackground(new Color(0x3C,0xB4,0xFF));
 		setForeground(Color.WHITE);
 		setText(name);
 		addMouseListener(ml);
@@ -54,7 +54,7 @@ class MouseListener extends MouseAdapter{
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		setBackground(Color.BLUE);
+		setBackground(new Color(0x3C,0xB4,0xFF));
 	}
 
 }

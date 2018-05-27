@@ -85,14 +85,28 @@ public class Layout extends JFrame{
 				btn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
+						int j=0,cnt=0;
 						centerPane.removeAll();
-						contents = textArea.getText().split("\n\t");
-						Node node = new Node(contents[0]);
-						node.setLocation(300,300);
-						node.setSize(40,40);
-						centerPane.add(node);
-						centerPane.revalidate();
-						centerPane.repaint();
+						contents = textArea.getText().split("\n");
+						for(int i=0; i<contents.length; ++i) {
+							while(contents[i].charAt(j)=='\t') {
+								++j;
+							}
+							Node node = new Node(contents[i]+" : "+j);
+							
+							if(j==0)
+								node.setLocation(300,300);
+							else if (j==1)
+								node.setLocation(400,400);
+							else if(j==2)
+								node.setLocation(500,500);
+							j=0;
+							
+							node.setSize(100,100);
+							centerPane.add(node);
+							centerPane.revalidate();
+							centerPane.repaint();
+						}
 					}
 				});
 				add(btn,BorderLayout.SOUTH);
@@ -100,6 +114,7 @@ public class Layout extends JFrame{
 		}
 		class CenterPane extends JPanel{
 			public CenterPane() {
+				setBackground(new Color(0xFF,0xE6,0xEB));
 				setLayout(null);
 			}
 		}
