@@ -7,7 +7,11 @@ import javax.swing.JLabel;
 
 public class Node extends JLabel{
 	MouseListener ml = new MouseListener();
-    Node(String name){
+	int level;
+	String name;
+    Node(String name,int level){
+    	this.level = level;
+    	this.name = name;
 		setOpaque(true);
 		setBackground(new Color(0x3C,0xB4,0xFF));
 		setForeground(Color.WHITE);

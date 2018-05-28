@@ -2,17 +2,20 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -20,6 +23,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class Layout extends JFrame{
 	Container c;
@@ -34,7 +44,7 @@ public class Layout extends JFrame{
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		splitPane2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		splitPane.setDividerLocation(200);
-		splitPane2.setDividerLocation(520);
+		splitPane2.setDividerLocation(700);
 		c.add(splitPane);
 		splitPane.setContinuousLayout(true); //연속적인 레이아웃 기능 활성화
 		splitPane.setLeftComponent(leftPane); //좌측 컴포넌트 장착
@@ -49,11 +59,75 @@ public class Layout extends JFrame{
 	}
 	
 		void createMenu() {
+			JSONObject jsonObject = new JSONObject();
 			JMenuBar mb = new JMenuBar();
+			JMenu save = new JMenu("저장");
+			JMenu open = new JMenu("열기");
+			save.addMenuListener(new MenuListener() {
+				@Override
+				public void menuCanceled(MenuEvent arg0) {}
+				@Override
+				public void menuDeselected(MenuEvent arg0) {}
+				@Override
+				public void menuSelected(MenuEvent arg0) {
+					JOptionPane.showMessageDialog(null, "저장되었습니다.");
+					String [] contents = leftPane.textArea.getText().split("\n");
+					for(int i=0; i<contents.length; ++i)
+						jsonObject.put(Integer.toString(i), contents[i]);
+					try (FileWriter file = new FileWriter("C:\\Users\\Junsik Choi\\Documents\\Java_MindMap\\SimpleMindMap\\src\\test.json")) {
+						file.write(jsonObject.toJSONString());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						System.out.println("파일저장 실패");
+					}
+				}
+			});	
+			open.addMenuListener(new MenuListener() {
+				@Override
+				public void menuCanceled(MenuEvent arg0) {}
+				@Override
+				public void menuDeselected(MenuEvent arg0) {}
+				@Override
+				public void menuSelected(MenuEvent arg0) {
+					String toTextArea="";
+				    JFileChooser fileChooser = new JFileChooser();
+				    JSONObject jsonObject=null;
+				    Object obj;
+				    FileNameExtensionFilter filter =  new FileNameExtensionFilter("JSON","json");
+				    fileChooser.setFileFilter(filter);
+					int returnVal = fileChooser.showOpenDialog(getContentPane());
+		            if( returnVal == JFileChooser.APPROVE_OPTION)
+		            {
+		                //열기 버튼을 누르면	
+		                String path = fileChooser.getSelectedFile().getPath();
+		                JSONParser parser = new JSONParser();
+						try {
+							obj = parser.parse(new FileReader(path));
+				            jsonObject = (JSONObject) obj;
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						for(int i=0;;++i) {
+							if(jsonObject.get(Integer.toString(i))==null)
+																break;
+							toTextArea += jsonObject.get(Integer.toString(i)).toString()+"\n";
+						}
+
+						leftPane.textArea.setText(toTextArea);
+		            }
+				}
+			});	
 			mb.setBackground(Color.GRAY);
 			mb.add(new JMenu("새로 만들기"));
-			mb.add(new JMenu("열기"));
-			mb.add(new JMenu("저장"));
+			mb.add(open);
+			mb.add(save);
 			mb.add(new JMenu("다른 이름으로 저장"));
 			mb.add(new JMenu("닫기"));
 			mb.add(new JMenu("적용"));
@@ -85,22 +159,16 @@ public class Layout extends JFrame{
 				btn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						int j=0,cnt=0;
+						int level=0;
 						centerPane.removeAll();
 						contents = textArea.getText().split("\n");
 						for(int i=0; i<contents.length; ++i) {
-							while(contents[i].charAt(j)=='\t') {
-								++j;
+							while(contents[i].charAt(level)=='\t') {
+								++level;
 							}
-							Node node = new Node(contents[i]+" : "+j);
+							Node node = new Node((contents[i]),level);
 							
-							if(j==0)
-								node.setLocation(300,300);
-							else if (j==1)
-								node.setLocation(400,400);
-							else if(j==2)
-								node.setLocation(500,500);
-							j=0;
+							level=0;
 							
 							node.setSize(100,100);
 							centerPane.add(node);
