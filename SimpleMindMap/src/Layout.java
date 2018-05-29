@@ -146,6 +146,8 @@ public class Layout extends JFrame{
 			toolBar.add(new JButton("적용"));
 			toolBar.add(new JButton("변경"));
 			
+			
+			
 			c.add(toolBar,BorderLayout.NORTH);
 		}
 		class LeftPane extends JPanel{
@@ -200,14 +202,19 @@ public class Layout extends JFrame{
 				jp.setLayout(new GridLayout(6,2,20,20));
 				jp.add(new JLabel("TEXT: ",SwingConstants.CENTER));
 				immutable.setEditable(false);
+				immutable.setHorizontalAlignment( JTextField.CENTER);
 				jp.add(immutable);
 				jp.add(new JLabel("X: ",SwingConstants.CENTER));
+				x.setHorizontalAlignment( JTextField.CENTER);
 				jp.add(x);
 				jp.add(new JLabel("Y: ",SwingConstants.CENTER));
+				y.setHorizontalAlignment( JTextField.CENTER);
 				jp.add(y);
 				jp.add(new JLabel("W: ",SwingConstants.CENTER));
+				w.setHorizontalAlignment( JTextField.CENTER);
 				jp.add(w);
 				jp.add(new JLabel("H: ",SwingConstants.CENTER));
+				h.setHorizontalAlignment( JTextField.CENTER);
 				jp.add(h);
 				jp.add(new JLabel("Color: ",SwingConstants.CENTER));
 				jp.add(c);

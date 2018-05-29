@@ -4,20 +4,24 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
+import javax.swing.border.EtchedBorder;
 
 public class Node extends JLabel{
 	MouseListener ml = new MouseListener();
+	EtchedBorder eborder;
 	int level;
 	String name;
     Node(String name,int level){
-    	this.level = level;
-    	this.name = name;
-		setOpaque(true);
-		setBackground(new Color(0x3C,0xB4,0xFF));
-		setForeground(Color.WHITE);
-		setText(name);
-		addMouseListener(ml);
-		addMouseMotionListener(ml);
+   	this.level = level;
+   	this.name = name;
+   	eborder=new EtchedBorder(EtchedBorder.RAISED);
+   	setBorder(eborder);
+	setOpaque(true);
+	setBackground(new Color(0x3C,0xB4,0xFF));
+	setForeground(Color.WHITE);
+	setText(name);
+	addMouseListener(ml);
+	addMouseMotionListener(ml);
 	}
 
 class MouseListener extends MouseAdapter{
