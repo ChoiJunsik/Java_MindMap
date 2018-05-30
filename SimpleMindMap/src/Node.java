@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.border.EtchedBorder;
@@ -11,17 +12,17 @@ public class Node extends JLabel{
 	EtchedBorder eborder;
 	int level;
 	String name;
-    Node(String name,int level){
-   	this.level = level;
-   	this.name = name;
-   	eborder=new EtchedBorder(EtchedBorder.RAISED);
-   	setBorder(eborder);
-	setOpaque(true);
-	setBackground(new Color(0x3C,0xB4,0xFF));
-	setForeground(Color.WHITE);
-	setText(name);
-	addMouseListener(ml);
-	addMouseMotionListener(ml);
+	ArrayList<Node> childs = new ArrayList<>();
+    Node(String name){
+	   	this.name = name;
+	   	eborder=new EtchedBorder(EtchedBorder.RAISED);
+	   	setBorder(eborder);
+		setOpaque(true);
+		setBackground(new Color(0x3C,0xB4,0xFF));
+		setForeground(Color.WHITE);
+		setText(name);
+		addMouseListener(ml);
+		addMouseMotionListener(ml);
 	}
 
 class MouseListener extends MouseAdapter{

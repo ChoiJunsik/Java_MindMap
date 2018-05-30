@@ -161,25 +161,50 @@ public class Layout extends JFrame{
 				btn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						int level=0;
+						int i=0;
 						centerPane.removeAll();
 						contents = textArea.getText().split("\n");
-						for(int i=0; i<contents.length; ++i) {
-							while(contents[i].charAt(level)=='\t') {
-								++level;
-							}
-							Node node = new Node((contents[i]),level);
-							
-							level=0;
-							
-							node.setSize(100,100);
-							centerPane.add(node);
-							centerPane.revalidate();
-							centerPane.repaint();
-						}
+						Node root = new Node(contents[0]);
+						root.setSize(100,100);
+						centerPane.add(root);
+						makeTree(root,contents,i);
+						centerPane.revalidate();
+						centerPane.repaint();
+						
 					}
 				});
 				add(btn,BorderLayout.SOUTH);
+			}
+			int makeTree(Node node,String []input,int i) {
+				do {
+				int levelF=0, levelA=0;
+				try {
+					while(node.name.charAt(levelF)=='\t') {
+						++levelF;
+					}
+					while(input[i+1].charAt(levelA)=='\t') {
+						++levelA;
+					}
+				}
+				catch(ArrayIndexOutOfBoundsException e){
+					return 0;
+				}
+				if((levelF == levelA-1)) {
+						Node newNode = new Node(input[i+1]);
+						newNode.setSize(100,100);
+						centerPane.add(newNode);
+						node.childs.add(newNode);
+						i = makeTree(newNode,input,i+1);
+						if(i!=0)
+							continue;
+						return 0;
+				}
+				else
+					return i;
+				
+				}while(i!=0);
+				return 0;
+
 			}
 		}
 		class CenterPane extends JPanel{
