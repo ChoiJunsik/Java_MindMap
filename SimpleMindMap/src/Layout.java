@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -152,8 +153,17 @@ public class Layout extends JFrame{
 		}
 		class LeftPane extends JPanel{
 			JTextArea textArea = new JTextArea();
-			String [] contents;
+			String [] contents;Random rand = new Random();
+			Color [] color = new Color[100];
+			
 			public LeftPane() {	
+				for(int i=0; i<color.length; ++i) {
+					 int redValue = rand.nextInt(255);
+					 int greenValue = rand.nextInt(255);
+					 int blueValue = rand.nextInt(255);
+					 
+					 color[i] = new Color(redValue, greenValue, blueValue);
+				 }
 				setLayout(new BorderLayout());
 				textArea.setTabSize(2);
 				add(new JScrollPane(textArea),BorderLayout.CENTER);
@@ -165,12 +175,16 @@ public class Layout extends JFrame{
 						centerPane.removeAll();
 						contents = textArea.getText().split("\n");
 						Node root = new Node(contents[0]);
-						root.setSize(100,100);
+						root.setSize(80,40);
+						root.setLocation(300,260);
+						root.setBackground(new Color(0x3C,0xB4,0xFF));
+						root.color = new Color(0x3C,0xB4,0xFF);
+						root.setHorizontalAlignment(SwingConstants.CENTER);
 						centerPane.add(root);
 						makeTree(root,contents,i);
+						makeTreeAttribute(root);
 						centerPane.revalidate();
 						centerPane.repaint();
-						
 					}
 				});
 				add(btn,BorderLayout.SOUTH);
@@ -191,7 +205,8 @@ public class Layout extends JFrame{
 				}
 				if((levelF == levelA-1)) {
 						Node newNode = new Node(input[i+1]);
-						newNode.setSize(100,100);
+						newNode.setSize(80,40);
+						newNode.setHorizontalAlignment(SwingConstants.CENTER);
 						centerPane.add(newNode);
 						node.childs.add(newNode);
 						i = makeTree(newNode,input,i+1);
@@ -205,6 +220,33 @@ public class Layout extends JFrame{
 				}while(i!=0);
 				return 0;
 
+			}
+			
+			void makeTreeAttribute(Node node) { // 노드이름 '\t'(level) 기준으로 색상, 위치 적용 후 노드이름에서 \t 제거
+				try {
+					int i=0,level;
+					while(true) {
+						level=0;
+						while(node.name.charAt(level)=='\t')
+											++level;//
+						node.childs.get(i).setBackground(color[level]);
+						node.childs.get(i).color = color[level];
+						++i;
+					}
+				}
+				catch(IndexOutOfBoundsException e) {
+					try {
+						int i = 0;
+						while(true) {
+							makeTreeAttribute(node.childs.get(i));
+							++i;
+						}
+					}
+					catch(IndexOutOfBoundsException e2) {
+						return;
+					}
+				}
+				
 			}
 		}
 		class CenterPane extends JPanel{

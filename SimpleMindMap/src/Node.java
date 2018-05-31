@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
+import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
 public class Node extends JLabel{
@@ -13,12 +14,12 @@ public class Node extends JLabel{
 	int level;
 	String name;
 	ArrayList<Node> childs = new ArrayList<>();
+	Color color;
     Node(String name){
 	   	this.name = name;
 	   	eborder=new EtchedBorder(EtchedBorder.RAISED);
 	   	setBorder(eborder);
 		setOpaque(true);
-		setBackground(new Color(0x3C,0xB4,0xFF));
 		setForeground(Color.WHITE);
 		setText(name);
 		addMouseListener(ml);
@@ -54,6 +55,7 @@ class MouseListener extends MouseAdapter{
 		//RightPane.getJTextField().setText(node.getText());
 		Layout.RightPane.immutable.setText(node.getText());
 		Layout.RightPane.x.setText(Double.toString(getLocation().getX()));
+		Layout.RightPane.y.setText(Double.toString(getLocation().getY()));
 	}
 
 	@Override
@@ -63,7 +65,7 @@ class MouseListener extends MouseAdapter{
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		setBackground(new Color(0x3C,0xB4,0xFF));
+		setBackground(color);
 	}
 
 }
