@@ -45,7 +45,7 @@ public class Layout extends JFrame{
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		splitPane2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		splitPane.setDividerLocation(200);
-		splitPane2.setDividerLocation(700);
+		splitPane2.setDividerLocation(1200);
 		c.add(splitPane);
 		splitPane.setContinuousLayout(true); //연속적인 레이아웃 기능 활성화
 		splitPane.setLeftComponent(leftPane); //좌측 컴포넌트 장착
@@ -55,7 +55,7 @@ public class Layout extends JFrame{
         splitPane.setRightComponent(splitPane2);
 		createMenu();
 		createToolBar();
-		setSize(1200,800);
+		setSize(1800,1000);
 		setVisible(true);
 	}
 	
@@ -131,8 +131,6 @@ public class Layout extends JFrame{
 			mb.add(save);
 			mb.add(new JMenu("다른 이름으로 저장"));
 			mb.add(new JMenu("닫기"));
-			mb.add(new JMenu("적용"));
-			mb.add(new JMenu("변경"));
 			
 			setJMenuBar(mb);
 		}
@@ -144,8 +142,6 @@ public class Layout extends JFrame{
 			toolBar.add(new JButton("저장"));
 			toolBar.add(new JButton("다른 이름으로 저장"));
 			toolBar.add(new JButton("닫기"));
-			toolBar.add(new JButton("적용"));
-			toolBar.add(new JButton("변경"));
 			
 			
 			
@@ -175,14 +171,15 @@ public class Layout extends JFrame{
 						centerPane.removeAll();
 						contents = textArea.getText().split("\n");
 						Node root = new Node(contents[0]);
-						root.setSize(80,40);
-						root.setLocation(300,260);
+						root.setSize(100,50);
+						root.setLocation(560,380);
 						root.setBackground(new Color(0x3C,0xB4,0xFF));
 						root.color = new Color(0x3C,0xB4,0xFF);
 						root.setHorizontalAlignment(SwingConstants.CENTER);
 						centerPane.add(root);
 						makeTree(root,contents,i);
-						makeTreeAttribute(root);
+						makeTreeColor(root);
+						makeTreeLocation(root,200,0);
 						centerPane.revalidate();
 						centerPane.repaint();
 					}
@@ -205,7 +202,7 @@ public class Layout extends JFrame{
 				}
 				if((levelF == levelA-1)) {
 						Node newNode = new Node(input[i+1]);
-						newNode.setSize(80,40);
+						newNode.setSize(60,30);
 						newNode.setHorizontalAlignment(SwingConstants.CENTER);
 						centerPane.add(newNode);
 						node.childs.add(newNode);
@@ -222,7 +219,52 @@ public class Layout extends JFrame{
 
 			}
 			
-			void makeTreeAttribute(Node node) { // 노드이름 '\t'(level) 기준으로 색상, 위치 적용 후 노드이름에서 \t 제거
+			void makeTreeLocation(Node node,int x,int select) { // 노드이름 '\t'(level) 기준으로 색상, 위치 적용 후 노드이름에서 \t 제거
+				try {
+						switch(select) {
+							case 0 :
+									node.childs.get(0).setLocation(node.getX()-x,node.getY()-x);
+									node.childs.get(1).setLocation(node.getX()+x,node.getY()-x);
+									node.childs.get(2).setLocation(node.getX()-x,node.getY()+x);
+									node.childs.get(3).setLocation(node.getX()+x,node.getY()+x);
+									break;
+							case 1 :
+								node.childs.get(0).setLocation(node.getX()-x,node.getY()-x);
+								node.childs.get(1).setLocation(node.getX()+x,node.getY()-x);
+								node.childs.get(2).setLocation(node.getX()+x,node.getY()+x);
+								node.childs.get(3).setLocation(node.getX()-x,node.getY()+x);
+								break;
+							case 2 :
+								node.childs.get(0).setLocation(node.getX()-x,node.getY()-x);
+								node.childs.get(1).setLocation(node.getX()-x,node.getY()+x);
+								node.childs.get(2).setLocation(node.getX()+x,node.getY()+x);
+								node.childs.get(3).setLocation(node.getX()+x,node.getY()-x);
+								break;
+							case 3 :
+								node.childs.get(0).setLocation(node.getX()+x,node.getY()-x);
+								node.childs.get(1).setLocation(node.getX()+x,node.getY()+x);
+								node.childs.get(2).setLocation(node.getX()-x,node.getY()+x);
+								node.childs.get(3).setLocation(node.getX()-x,node.getY()-x);
+								break;
+						}
+						node.childs.get(4);
+				}
+				catch(IndexOutOfBoundsException e) {
+					try {
+						int i = 0;
+						while(true) {
+							makeTreeLocation(node.childs.get(i),x-120,i);
+							++i;
+						}
+					}
+					catch(IndexOutOfBoundsException e2) {
+						return;
+					}
+				}
+				
+			} 
+			
+			void makeTreeColor(Node node) { // 노드이름 '\t'(level) 기준으로 색상, 위치 적용 후 노드이름에서 \t 제거
 				try {
 					int i=0,level;
 					while(true) {
@@ -238,7 +280,7 @@ public class Layout extends JFrame{
 					try {
 						int i = 0;
 						while(true) {
-							makeTreeAttribute(node.childs.get(i));
+							makeTreeColor(node.childs.get(i));
 							++i;
 						}
 					}
