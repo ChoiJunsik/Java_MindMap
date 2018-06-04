@@ -225,6 +225,12 @@ public class Layout extends JFrame{
 				public void menuSelected(MenuEvent arg0) {
 					leftPane.textArea.setText("");
 					centerPane.removeAll();
+					rightPane.immutable.setText("");
+					rightPane.x.setText("");
+					rightPane.y.setText("");
+					rightPane.w.setText("");
+					rightPane.h.setText("");
+					rightPane.c.setText("");
 					centerPane.revalidate();
 					centerPane.repaint();					
 				}});
@@ -446,6 +452,12 @@ public class Layout extends JFrame{
 			restart.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e){
 					leftPane.textArea.setText("");
+					rightPane.immutable.setText("");
+					rightPane.x.setText("");
+					rightPane.y.setText("");
+					rightPane.w.setText("");
+					rightPane.h.setText("");
+					rightPane.c.setText("");
 					centerPane.removeAll();
 					centerPane.revalidate();
 					centerPane.repaint();					
