@@ -44,8 +44,7 @@ public class Layout extends JFrame{
 	JSONObject jsonObject;
 	Node root;
 	Boolean saveCnt = false;
-	String savePath=null;
-	String loadPath=null;
+	String path=null;
 	int idx=0;
 	public Layout() {
 		setTitle("SimpleMindMap");
@@ -96,14 +95,14 @@ public class Layout extends JFrame{
 			            if( returnVal == JFileChooser.APPROVE_OPTION)
 			            {
 			                //열기 버튼을 누르면	
-			                savePath = fileChooser.getSelectedFile().toString() + "." + fileChooser.getFileFilter().getDescription();
+			                path = fileChooser.getSelectedFile().toString() + "." + fileChooser.getFileFilter().getDescription();
 			                String [] contents = leftPane.textArea.getText().split("\n");
 			                jsonObject = new JSONObject();
 							getAttribute(root); // 배열 인덱스 0: 이름 , 1: x, 2: y, 3: w, 4: h
-							try (FileWriter file = new FileWriter(savePath)) {
+							try (FileWriter file = new FileWriter(path)) {
 								file.write(jsonObject.toJSONString());
 								JOptionPane.showMessageDialog(null, "저장되었습니다.");
-								layout.setTitle(savePath);
+								layout.setTitle(path);
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
 								System.out.println("파일저장 실패");
@@ -116,10 +115,10 @@ public class Layout extends JFrame{
 				    	String [] contents = leftPane.textArea.getText().split("\n");
 		                jsonObject = new JSONObject();
 						getAttribute(root); // 배열 인덱스 0: 이름 , 1: x, 2: y, 3: w, 4: h
-						try (FileWriter file = new FileWriter(savePath)) {
+						try (FileWriter file = new FileWriter(path)) {
 							file.write(jsonObject.toJSONString());
 							JOptionPane.showMessageDialog(null, "저장되었습니다.");
-							layout.setTitle(savePath);
+							layout.setTitle(path);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							System.out.println("파일저장 실패");
@@ -144,14 +143,14 @@ public class Layout extends JFrame{
 		            if( returnVal == JFileChooser.APPROVE_OPTION)
 		            {
 		                //열기 버튼을 누르면	
-		                savePath = fileChooser.getSelectedFile().toString() + "." + fileChooser.getFileFilter().getDescription();
+		                path = fileChooser.getSelectedFile().toString() + "." + fileChooser.getFileFilter().getDescription();
 		                String [] contents = leftPane.textArea.getText().split("\n");
 		                jsonObject = new JSONObject();
 						getAttribute(root); // 배열 인덱스 0: 이름 , 1: x, 2: y, 3: w, 4: h
-						try (FileWriter file = new FileWriter(savePath)) {
+						try (FileWriter file = new FileWriter(path)) {
 							file.write(jsonObject.toJSONString());
 							JOptionPane.showMessageDialog(null, "저장되었습니다.");
-							layout.setTitle(savePath);
+							layout.setTitle(path);
 							saveCnt=true;
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
@@ -180,10 +179,10 @@ public class Layout extends JFrame{
 		            if( returnVal == JFileChooser.APPROVE_OPTION)
 		            {
 		                //열기 버튼을 누르면	
-		            	loadPath = fileChooser.getSelectedFile().getPath();
+		            	path = fileChooser.getSelectedFile().getPath();
 		                JSONParser parser = new JSONParser();
 						try {
-							obj = parser.parse(new FileReader(loadPath));
+							obj = parser.parse(new FileReader(path));
 				            jsonObject = (JSONObject) obj;
 						} catch (FileNotFoundException e) {
 							// TODO Auto-generated catch block
@@ -215,7 +214,8 @@ public class Layout extends JFrame{
 						makeTreeForOpen(root,leftPane.contents,i);
 						centerPane.revalidate();
 						centerPane.repaint();
-						layout.setTitle(loadPath);
+						layout.setTitle(path);
+						saveCnt = true;
 		            }
 				}
 			});
@@ -328,14 +328,14 @@ public class Layout extends JFrame{
 			            if( returnVal == JFileChooser.APPROVE_OPTION)
 			            {
 			                //열기 버튼을 누르면	
-			                savePath = fileChooser.getSelectedFile().toString() + "." + fileChooser.getFileFilter().getDescription();
+			                path = fileChooser.getSelectedFile().toString() + "." + fileChooser.getFileFilter().getDescription();
 			                String [] contents = leftPane.textArea.getText().split("\n");
 			                jsonObject = new JSONObject();
 							getAttribute(root); // 배열 인덱스 0: 이름 , 1: x, 2: y, 3: w, 4: h
-							try (FileWriter file = new FileWriter(savePath)) {
+							try (FileWriter file = new FileWriter(path)) {
 								file.write(jsonObject.toJSONString());
 								JOptionPane.showMessageDialog(null, "저장되었습니다.");
-								layout.setTitle(savePath);
+								layout.setTitle(path);
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
 								System.out.println("파일저장 실패");
@@ -348,10 +348,10 @@ public class Layout extends JFrame{
 				    	String [] contents = leftPane.textArea.getText().split("\n");
 		                jsonObject = new JSONObject();
 						getAttribute(root); // 배열 인덱스 0: 이름 , 1: x, 2: y, 3: w, 4: h
-						try (FileWriter file = new FileWriter(savePath)) {
+						try (FileWriter file = new FileWriter(path)) {
 							file.write(jsonObject.toJSONString());
 							JOptionPane.showMessageDialog(null, "저장되었습니다.");
-							layout.setTitle(savePath);
+							layout.setTitle(path);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							System.out.println("파일저장 실패");
@@ -371,14 +371,14 @@ public class Layout extends JFrame{
 		            if( returnVal == JFileChooser.APPROVE_OPTION)
 		            {
 		                //열기 버튼을 누르면	
-		                savePath = fileChooser.getSelectedFile().toString() + "." + fileChooser.getFileFilter().getDescription();
+		                path = fileChooser.getSelectedFile().toString() + "." + fileChooser.getFileFilter().getDescription();
 		                String [] contents = leftPane.textArea.getText().split("\n");
 		                jsonObject = new JSONObject();
 						getAttribute(root); // 배열 인덱스 0: 이름 , 1: x, 2: y, 3: w, 4: h
-						try (FileWriter file = new FileWriter(savePath)) {
+						try (FileWriter file = new FileWriter(path)) {
 							file.write(jsonObject.toJSONString());
 							JOptionPane.showMessageDialog(null, "저장되었습니다.");
-							layout.setTitle(savePath);
+							layout.setTitle(path);
 							saveCnt=true;
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
@@ -403,10 +403,10 @@ public class Layout extends JFrame{
 		            if( returnVal == JFileChooser.APPROVE_OPTION)
 		            {
 		                //열기 버튼을 누르면	
-		            	loadPath = fileChooser.getSelectedFile().getPath();
+		            	path = fileChooser.getSelectedFile().getPath();
 		                JSONParser parser = new JSONParser();
 						try {
-							obj = parser.parse(new FileReader(loadPath));
+							obj = parser.parse(new FileReader(path));
 				            jsonObject = (JSONObject) obj;
 						} catch (FileNotFoundException e) {
 							// TODO Auto-generated catch block
@@ -438,7 +438,8 @@ public class Layout extends JFrame{
 						makeTreeForOpen(root,leftPane.contents,i);
 						centerPane.revalidate();
 						centerPane.repaint();
-						layout.setTitle(loadPath);
+						layout.setTitle(path);
+						saveCnt = true;
 		            }
 				}
 			});
@@ -609,7 +610,7 @@ public class Layout extends JFrame{
 				
 			}
 		}
-		class CenterPane extends JScrollPane{
+		class CenterPane extends JPanel{
 			public CenterPane() {
 				setBackground(new Color(0xFF,0xE6,0xEB));
 				setLayout(null);
