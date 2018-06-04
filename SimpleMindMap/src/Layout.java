@@ -281,6 +281,7 @@ public class Layout extends JFrame{
 					Node newNode = new Node(input[i+1]);
 					newNode.setSize((int)(long) ((JSONArray) jsonObject.get(Integer.toString(idx))).get(3),(int)(long) ((JSONArray) jsonObject.get(Integer.toString(idx))).get(4));
 					newNode.setLocation((int)(long) ((JSONArray) jsonObject.get(Integer.toString(idx))).get(1),(int)(long) ((JSONArray) jsonObject.get(Integer.toString(idx))).get(2));
+					newNode.setBackground(Color.blue);
 					++idx;
 					newNode.setHorizontalAlignment(SwingConstants.CENTER);
 					centerPane.add(newNode);
@@ -301,12 +302,154 @@ public class Layout extends JFrame{
 		
 		void createToolBar() {
 			JToolBar toolBar = new JToolBar();
-			toolBar.setFloatable(false );
-			toolBar.add(new JButton("새로 만들기"));
-			toolBar.add(new JButton("열기"));
-			toolBar.add(new JButton("저장"));
-			toolBar.add(new JButton("다른 이름으로 저장"));
-			toolBar.add(new JButton("닫기"));
+			toolBar.setFloatable(false);
+			JButton save = new JButton("저장");
+			JButton open = new JButton("열기");
+			JButton restart = new JButton("새로 만들기");
+			JButton exit = new JButton("닫기");
+			JButton saveAs = new JButton("다른 이름으로 저장");
+			
+			save.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					JFileChooser fileChooser = new JFileChooser();
+				    Object obj;
+				    FileNameExtensionFilter filter =  new FileNameExtensionFilter("json","json");
+				    idx = 0;
+				    fileChooser.setFileFilter(filter);
+				    if(saveCnt == false) {
+				    	int returnVal = fileChooser.showSaveDialog(getContentPane());
+				    	saveCnt = true;
+			            if( returnVal == JFileChooser.APPROVE_OPTION)
+			            {
+			                //열기 버튼을 누르면	
+			                savePath = fileChooser.getSelectedFile().toString() + "." + fileChooser.getFileFilter().getDescription();
+			                String [] contents = leftPane.textArea.getText().split("\n");
+			                jsonObject = new JSONObject();
+							getAttribute(root); // 배열 인덱스 0: 이름 , 1: x, 2: y, 3: w, 4: h
+							try (FileWriter file = new FileWriter(savePath)) {
+								file.write(jsonObject.toJSONString());
+								JOptionPane.showMessageDialog(null, "저장되었습니다.");
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								System.out.println("파일저장 실패");
+							}
+			            }
+			            else
+			            	return;
+				    }
+				    else {
+				    	String [] contents = leftPane.textArea.getText().split("\n");
+		                jsonObject = new JSONObject();
+						getAttribute(root); // 배열 인덱스 0: 이름 , 1: x, 2: y, 3: w, 4: h
+						try (FileWriter file = new FileWriter(savePath)) {
+							file.write(jsonObject.toJSONString());
+							JOptionPane.showMessageDialog(null, "저장되었습니다.");
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							System.out.println("파일저장 실패");
+						}
+				    }
+					
+				}
+			});
+			saveAs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e){
+					JFileChooser fileChooser = new JFileChooser();
+				    Object obj;
+				    FileNameExtensionFilter filter =  new FileNameExtensionFilter("json","json");
+				    idx = 0;
+				    fileChooser.setFileFilter(filter);
+					int returnVal = fileChooser.showSaveDialog(getContentPane());
+		            if( returnVal == JFileChooser.APPROVE_OPTION)
+		            {
+		                //열기 버튼을 누르면	
+		                savePath = fileChooser.getSelectedFile().toString() + "." + fileChooser.getFileFilter().getDescription();
+		                String [] contents = leftPane.textArea.getText().split("\n");
+		                jsonObject = new JSONObject();
+						getAttribute(root); // 배열 인덱스 0: 이름 , 1: x, 2: y, 3: w, 4: h
+						try (FileWriter file = new FileWriter(savePath)) {
+							file.write(jsonObject.toJSONString());
+							JOptionPane.showMessageDialog(null, "저장되었습니다.");
+							saveCnt=true;
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							System.out.println("파일저장 실패");
+						}
+		            }
+		            else
+		            	return;
+					
+				}
+			});
+			
+			open.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent l){
+					String toTextArea="";
+				    JFileChooser fileChooser = new JFileChooser();
+				    Object obj;
+				    FileNameExtensionFilter filter =  new FileNameExtensionFilter("JSON","json");
+				    fileChooser.setFileFilter(filter);
+					int returnVal = fileChooser.showOpenDialog(getContentPane());
+		            if( returnVal == JFileChooser.APPROVE_OPTION)
+		            {
+		                //열기 버튼을 누르면	
+		                String path = fileChooser.getSelectedFile().getPath();
+		                JSONParser parser = new JSONParser();
+						try {
+							obj = parser.parse(new FileReader(path));
+				            jsonObject = (JSONObject) obj;
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						for(int i=0;;++i) {
+							if(jsonObject.get(Integer.toString(i))==null)
+																break;
+							toTextArea += ((JSONArray) jsonObject.get(Integer.toString(i))).get(0)+"\n";
+						}
+						leftPane.textArea.setText(toTextArea);
+						int i=0;
+						centerPane.removeAll();
+						leftPane.contents = leftPane.textArea.getText().split("\n");
+						root = new Node(leftPane.contents[0]);
+						root.setSize(80,40);
+						root.setLocation((int)(long) ((JSONArray) jsonObject.get(Integer.toString(i))).get(1),(int)(long) ((JSONArray) jsonObject.get(Integer.toString(i))).get(2));
+						root.setBackground(new Color(0x3C,0xB4,0xFF));
+						root.color = new Color(0x3C,0xB4,0xFF);
+						root.setHorizontalAlignment(SwingConstants.CENTER);
+						centerPane.add(root);
+						idx = 1;
+						makeTreeForOpen(root,leftPane.contents,i);
+						centerPane.revalidate();
+						centerPane.repaint();
+		            }
+				}
+			});
+			restart.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e){
+					leftPane.textArea.setText("");
+					centerPane.removeAll();
+					centerPane.revalidate();
+					centerPane.repaint();					
+				}});
+			exit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e){
+					System.exit(0);					
+				}});
+			toolBar.setBackground(Color.GRAY);
+			toolBar.add(restart);
+			toolBar.add(open);
+			toolBar.add(save);
+			toolBar.add(saveAs);
+			toolBar.add(exit);			
+		
 			
 			
 			
