@@ -57,8 +57,10 @@ class MouseListener extends MouseAdapter{
 			Layout.RightPane.immutable.setText(name.split("\t")[1]);
 		else
 			Layout.RightPane.immutable.setText(name);
-		Layout.RightPane.x.setText(Double.toString(getLocation().getX()));
-		Layout.RightPane.y.setText(Double.toString(getLocation().getY()));
+		Layout.RightPane.x.setText(Double.toString(node.getX()));
+		Layout.RightPane.y.setText(Double.toString(node.getY()));
+		Layout.RightPane.w.setText(Double.toString(node.getWidth()));
+		Layout.RightPane.h.setText(Double.toString(node.getHeight()));
 	}
 
 	@Override
