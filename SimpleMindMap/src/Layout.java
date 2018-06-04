@@ -36,6 +36,7 @@ import org.json.simple.parser.ParseException;
 
 public class Layout extends JFrame{
 	Container c;
+	JFrame layout = this;
     JSplitPane splitPane,splitPane2;
     CenterPane centerPane = new CenterPane();
     LeftPane leftPane = new LeftPane();
@@ -102,6 +103,7 @@ public class Layout extends JFrame{
 							try (FileWriter file = new FileWriter(savePath)) {
 								file.write(jsonObject.toJSONString());
 								JOptionPane.showMessageDialog(null, "저장되었습니다.");
+								layout.setTitle(savePath);
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
 								System.out.println("파일저장 실패");
@@ -117,6 +119,7 @@ public class Layout extends JFrame{
 						try (FileWriter file = new FileWriter(savePath)) {
 							file.write(jsonObject.toJSONString());
 							JOptionPane.showMessageDialog(null, "저장되었습니다.");
+							layout.setTitle(savePath);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							System.out.println("파일저장 실패");
@@ -148,6 +151,7 @@ public class Layout extends JFrame{
 						try (FileWriter file = new FileWriter(savePath)) {
 							file.write(jsonObject.toJSONString());
 							JOptionPane.showMessageDialog(null, "저장되었습니다.");
+							layout.setTitle(savePath);
 							saveCnt=true;
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
@@ -176,10 +180,10 @@ public class Layout extends JFrame{
 		            if( returnVal == JFileChooser.APPROVE_OPTION)
 		            {
 		                //열기 버튼을 누르면	
-		                String path = fileChooser.getSelectedFile().getPath();
+		            	loadPath = fileChooser.getSelectedFile().getPath();
 		                JSONParser parser = new JSONParser();
 						try {
-							obj = parser.parse(new FileReader(path));
+							obj = parser.parse(new FileReader(loadPath));
 				            jsonObject = (JSONObject) obj;
 						} catch (FileNotFoundException e) {
 							// TODO Auto-generated catch block
@@ -211,6 +215,7 @@ public class Layout extends JFrame{
 						makeTreeForOpen(root,leftPane.contents,i);
 						centerPane.revalidate();
 						centerPane.repaint();
+						layout.setTitle(loadPath);
 		            }
 				}
 			});
@@ -330,6 +335,7 @@ public class Layout extends JFrame{
 							try (FileWriter file = new FileWriter(savePath)) {
 								file.write(jsonObject.toJSONString());
 								JOptionPane.showMessageDialog(null, "저장되었습니다.");
+								layout.setTitle(savePath);
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
 								System.out.println("파일저장 실패");
@@ -345,6 +351,7 @@ public class Layout extends JFrame{
 						try (FileWriter file = new FileWriter(savePath)) {
 							file.write(jsonObject.toJSONString());
 							JOptionPane.showMessageDialog(null, "저장되었습니다.");
+							layout.setTitle(savePath);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							System.out.println("파일저장 실패");
@@ -371,6 +378,7 @@ public class Layout extends JFrame{
 						try (FileWriter file = new FileWriter(savePath)) {
 							file.write(jsonObject.toJSONString());
 							JOptionPane.showMessageDialog(null, "저장되었습니다.");
+							layout.setTitle(savePath);
 							saveCnt=true;
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
@@ -385,6 +393,7 @@ public class Layout extends JFrame{
 			
 			open.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent l){
+					
 					String toTextArea="";
 				    JFileChooser fileChooser = new JFileChooser();
 				    Object obj;
@@ -394,10 +403,10 @@ public class Layout extends JFrame{
 		            if( returnVal == JFileChooser.APPROVE_OPTION)
 		            {
 		                //열기 버튼을 누르면	
-		                String path = fileChooser.getSelectedFile().getPath();
+		            	loadPath = fileChooser.getSelectedFile().getPath();
 		                JSONParser parser = new JSONParser();
 						try {
-							obj = parser.parse(new FileReader(path));
+							obj = parser.parse(new FileReader(loadPath));
 				            jsonObject = (JSONObject) obj;
 						} catch (FileNotFoundException e) {
 							// TODO Auto-generated catch block
@@ -429,6 +438,7 @@ public class Layout extends JFrame{
 						makeTreeForOpen(root,leftPane.contents,i);
 						centerPane.revalidate();
 						centerPane.repaint();
+						layout.setTitle(loadPath);
 		            }
 				}
 			});
