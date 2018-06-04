@@ -53,7 +53,10 @@ class MouseListener extends MouseAdapter{
 	public void mouseReleased(MouseEvent e) {
 		Node node = (Node) e.getSource();
 		//RightPane.getJTextField().setText(node.getText());
-		Layout.RightPane.immutable.setText(node.getText());
+		if(name.charAt(0)=='\t')
+			Layout.RightPane.immutable.setText(name.split("\t")[1]);
+		else
+			Layout.RightPane.immutable.setText(name);
 		Layout.RightPane.x.setText(Double.toString(getLocation().getX()));
 		Layout.RightPane.y.setText(Double.toString(getLocation().getY()));
 	}

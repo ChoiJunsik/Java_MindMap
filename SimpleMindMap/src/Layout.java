@@ -28,6 +28,7 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -38,6 +39,10 @@ public class Layout extends JFrame{
     CenterPane centerPane = new CenterPane();
     LeftPane leftPane = new LeftPane();
 	RightPane rightPane = new RightPane();
+	JSONObject jsonObject = new JSONObject();
+	JSONArray list;
+	Node root;
+	int idx=0;
 	public Layout() {
 		setTitle("SimpleMindMap");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,7 +65,7 @@ public class Layout extends JFrame{
 	}
 	
 		void createMenu() {
-			JSONObject jsonObject = new JSONObject();
+			
 			JMenuBar mb = new JMenuBar();
 			JMenu save = new JMenu("저장");
 			JMenu open = new JMenu("열기");
@@ -73,8 +78,7 @@ public class Layout extends JFrame{
 				public void menuSelected(MenuEvent arg0) {
 					JOptionPane.showMessageDialog(null, "저장되었습니다.");
 					String [] contents = leftPane.textArea.getText().split("\n");
-					for(int i=0; i<contents.length; ++i)
-						jsonObject.put(Integer.toString(i), contents[i]);
+					getAttribute(root); // 배열 인덱스 0: 이름 , 1: x, 2: y
 					try (FileWriter file = new FileWriter("C:\\Users\\Junsik Choi\\Documents\\Java_MindMap\\SimpleMindMap\\src\\test.json")) {
 						file.write(jsonObject.toJSONString());
 					} catch (IOException e1) {
@@ -92,7 +96,6 @@ public class Layout extends JFrame{
 				public void menuSelected(MenuEvent arg0) {
 					String toTextArea="";
 				    JFileChooser fileChooser = new JFileChooser();
-				    JSONObject jsonObject=null;
 				    Object obj;
 				    FileNameExtensionFilter filter =  new FileNameExtensionFilter("JSON","json");
 				    fileChooser.setFileFilter(filter);
@@ -118,10 +121,23 @@ public class Layout extends JFrame{
 						for(int i=0;;++i) {
 							if(jsonObject.get(Integer.toString(i))==null)
 																break;
-							toTextArea += jsonObject.get(Integer.toString(i)).toString()+"\n";
+							toTextArea += ((JSONArray) jsonObject.get(Integer.toString(i))).get(0)+"\n";
 						}
-
 						leftPane.textArea.setText(toTextArea);
+						int i=0;
+						centerPane.removeAll();
+						leftPane.contents = leftPane.textArea.getText().split("\n");
+						root = new Node(leftPane.contents[0]);
+						root.setSize(80,40);
+						root.setLocation((int)(long) ((JSONArray) jsonObject.get(Integer.toString(i))).get(1),(int)(long) ((JSONArray) jsonObject.get(Integer.toString(i))).get(2));
+						root.setBackground(new Color(0x3C,0xB4,0xFF));
+						root.color = new Color(0x3C,0xB4,0xFF);
+						root.setHorizontalAlignment(SwingConstants.CENTER);
+						centerPane.add(root);
+						idx = 1;
+						makeTreeForOpen(root,leftPane.contents,i);
+						centerPane.revalidate();
+						centerPane.repaint();
 		            }
 				}
 			});	
@@ -134,6 +150,63 @@ public class Layout extends JFrame{
 			
 			setJMenuBar(mb);
 		}
+		
+		void getAttribute(Node node) {
+			try {
+				list = new JSONArray();
+				list.add(node.name);
+				list.add(node.getX());
+				list.add(node.getY());
+				jsonObject.put(Integer.toString(idx),list);
+				++idx;
+				int i=0;
+				while(true) {
+					getAttribute(node.childs.get(i));
+					++i;
+				}
+			}
+			catch(IndexOutOfBoundsException e) {
+				return;
+			}
+		}
+		
+		int makeTreeForOpen(Node node,String []input,int i) {
+			System.out.println(jsonObject);
+			do {
+			int levelF=0, levelA=0;
+			try {
+				while(node.name.charAt(levelF)=='\t') {
+					++levelF;
+				}
+				while(input[i+1].charAt(levelA)=='\t') {
+					++levelA;
+				}
+			}
+			catch(ArrayIndexOutOfBoundsException e){
+				return 0;
+			}
+			if((levelF == levelA-1)) {
+					Node newNode = new Node(input[i+1]);
+					newNode.setSize(60,30);
+					newNode.setLocation((int)(long) ((JSONArray) jsonObject.get(Integer.toString(idx))).get(1),(int)(long) ((JSONArray) jsonObject.get(Integer.toString(idx))).get(2));
+					++idx;
+					newNode.setHorizontalAlignment(SwingConstants.CENTER);
+					centerPane.add(newNode);
+					node.childs.add(newNode);
+					i = makeTreeForOpen(newNode,input,i+1);
+					if(i!=0)
+						continue;
+					return 0;
+			}
+			else
+				return i;
+			
+			}while(i!=0);
+			return 0;
+
+		}
+
+		
 		void createToolBar() {
 			JToolBar toolBar = new JToolBar();
 			toolBar.setFloatable(false );
@@ -151,7 +224,7 @@ public class Layout extends JFrame{
 			JTextArea textArea = new JTextArea();
 			String [] contents;Random rand = new Random();
 			Color [] color = new Color[100];
-			
+			JButton btn;
 			public LeftPane() {	
 				for(int i=0; i<color.length; ++i) {
 					 int redValue = rand.nextInt(255);
@@ -163,15 +236,15 @@ public class Layout extends JFrame{
 				setLayout(new BorderLayout());
 				textArea.setTabSize(2);
 				add(new JScrollPane(textArea),BorderLayout.CENTER);
-				JButton btn = new JButton("적용");
+				btn = new JButton("적용");
 				btn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
 						int i=0;
 						centerPane.removeAll();
 						contents = textArea.getText().split("\n");
-						Node root = new Node(contents[0]);
-						root.setSize(100,50);
+						root = new Node(contents[0]);
+						root.setSize(80,40);
 						root.setLocation(560,380);
 						root.setBackground(new Color(0x3C,0xB4,0xFF));
 						root.color = new Color(0x3C,0xB4,0xFF);
@@ -179,7 +252,7 @@ public class Layout extends JFrame{
 						centerPane.add(root);
 						makeTree(root,contents,i);
 						makeTreeColor(root);
-						makeTreeLocation(root,200,0);
+						makeTreeLocation(root,120,0);
 						centerPane.revalidate();
 						centerPane.repaint();
 					}
@@ -253,7 +326,7 @@ public class Layout extends JFrame{
 					try {
 						int i = 0;
 						while(true) {
-							makeTreeLocation(node.childs.get(i),x-120,i);
+							makeTreeLocation(node.childs.get(i),x-25,i);
 							++i;
 						}
 					}
