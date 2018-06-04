@@ -637,6 +637,7 @@ public class Layout extends JFrame{
 			static JTextField w = new JTextField(10);
 			static JTextField h = new JTextField(10);
 			static JTextField c = new JTextField(10);
+			static Node node;
 			public RightPane() {
 				setLayout(new BorderLayout());
 				add(new JScrollPane(jp),BorderLayout.CENTER);
@@ -660,6 +661,14 @@ public class Layout extends JFrame{
 				jp.add(new JLabel("Color: ",SwingConstants.CENTER));
 				jp.add(c);
 				JButton btn = new JButton("변경");
+				btn.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						node.setLocation((int)Double.parseDouble(x.getText()),(int)Double.parseDouble(y.getText()));
+						node.setSize((int)Double.parseDouble(w.getText()), (int)Double.parseDouble(h.getText()));						
+					}
+				});
 				add(btn,BorderLayout.SOUTH);
 			}
 		}

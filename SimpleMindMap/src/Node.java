@@ -61,6 +61,7 @@ class MouseListener extends MouseAdapter{
 		Layout.RightPane.y.setText(Double.toString(node.getY()));
 		Layout.RightPane.w.setText(Double.toString(node.getWidth()));
 		Layout.RightPane.h.setText(Double.toString(node.getHeight()));
+		Layout.RightPane.node = node;
 	}
 
 	@Override
