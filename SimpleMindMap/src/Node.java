@@ -54,16 +54,16 @@ class MouseListener extends MouseAdapter{
 		Node node = (Node) e.getSource();
 		//RightPane.getJTextField().setText(node.getText());
 		if(name.charAt(0)=='\t')
-			Layout.RightPane.immutable.setText(name.split("\t")[1]);
+			RightPane.immutable.setText(name.split("\t")[1]);
 		else
-			Layout.RightPane.immutable.setText(name);
-		Layout.RightPane.x.setText(Double.toString(node.getX()));
-		Layout.RightPane.y.setText(Double.toString(node.getY()));
-		Layout.RightPane.w.setText(Double.toString(node.getWidth()));
-		Layout.RightPane.h.setText(Double.toString(node.getHeight()));
-		Layout.RightPane.c.setText(Integer.toHexString(node.color.getRGB()).substring(2));
+			RightPane.immutable.setText(name);
+			RightPane.x.setText(Double.toString(node.getX()));
+			RightPane.y.setText(Double.toString(node.getY()));
+			RightPane.w.setText(Double.toString(node.getWidth()));
+			RightPane.h.setText(Double.toString(node.getHeight()));
+			RightPane.c.setText(Integer.toHexString(node.color.getRGB()).substring(2));
 
-		Layout.RightPane.node = node;
+			RightPane.node = node;
 	}
 
 	@Override
