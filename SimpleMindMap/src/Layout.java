@@ -257,6 +257,7 @@ public class Layout extends JFrame{
 				list.add(node.getY());
 				list.add(node.getWidth());
 				list.add(node.getHeight());
+				list.add(Integer.toHexString(node.color.getRGB()).substring(2));
 				jsonObject.put(Integer.toString(idx),list);
 				++idx;
 				int i=0;
@@ -292,7 +293,8 @@ public class Layout extends JFrame{
 					Node newNode = new Node(input[i+1]);
 					newNode.setSize((int)(long) ((JSONArray) jsonObject.get(Integer.toString(idx))).get(3),(int)(long) ((JSONArray) jsonObject.get(Integer.toString(idx))).get(4));
 					newNode.setLocation((int)(long) ((JSONArray) jsonObject.get(Integer.toString(idx))).get(1),(int)(long) ((JSONArray) jsonObject.get(Integer.toString(idx))).get(2));
-					newNode.setBackground(Color.blue);
+					String color = (String)((JSONArray) jsonObject.get(Integer.toString(idx))).get(5);
+					newNode.setBackground(new Color(Integer.valueOf(color.substring(0,2),16),Integer.valueOf(color.substring(2,4),16),Integer.valueOf(color.substring(4),16)));
 					++idx;
 					newNode.setHorizontalAlignment(SwingConstants.CENTER);
 					centerPane.add(newNode);
@@ -659,14 +661,18 @@ public class Layout extends JFrame{
 				h.setHorizontalAlignment( JTextField.CENTER);
 				jp.add(h);
 				jp.add(new JLabel("Color: ",SwingConstants.CENTER));
-				jp.add(c);
+				c.setHorizontalAlignment( JTextField.CENTER);
+				jp.add(c);				
 				JButton btn = new JButton("변경");
 				btn.addActionListener(new ActionListener() {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						node.setLocation((int)Double.parseDouble(x.getText()),(int)Double.parseDouble(y.getText()));
-						node.setSize((int)Double.parseDouble(w.getText()), (int)Double.parseDouble(h.getText()));						
+						node.setSize((int)Double.parseDouble(w.getText()), (int)Double.parseDouble(h.getText()));
+						String color = (String)c.getText();
+						node.setBackground(new Color(Integer.valueOf(color.substring(0,2),16),Integer.valueOf(color.substring(2,4),16),Integer.valueOf(color.substring(4),16)));
+
 					}
 				});
 				add(btn,BorderLayout.SOUTH);
