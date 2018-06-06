@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -163,6 +164,7 @@ public class MyMenuListener implements MenuListener{
         }
 	}
 	void forRestart() {
+		LeftPane.relationships = new ArrayList<>(2000);
 		Layout.leftPane.textArea.setText("");
 		Layout.centerPane.removeAll();
 		Layout.rightPane.immutable.setText("");

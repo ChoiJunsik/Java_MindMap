@@ -64,6 +64,7 @@ class MouseListener extends MouseAdapter{
 			RightPane.c.setText(Integer.toHexString(node.color.getRGB()).substring(2));
 
 			RightPane.node = node;
+		//Layout.c.repaint();	
 	}
 
 	@Override

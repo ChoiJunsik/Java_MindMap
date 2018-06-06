@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -161,6 +162,7 @@ public class MyToolbarListener implements ActionListener{
 	        }
 		}
 		void forRestart() {
+			LeftPane.relationships = new ArrayList<>(2000);
 			Layout.leftPane.textArea.setText("");
 			Layout.centerPane.removeAll();
 			Layout.rightPane.immutable.setText("");

@@ -1,7 +1,13 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -10,11 +16,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+
 class LeftPane extends JPanel{
 			JTextArea textArea = new JTextArea();
 			String [] contents;Random rand = new Random();
 			Color [] color = new Color[100];
 			JButton btn;
+		    static List<Relationship> relationships = new ArrayList<>(2000);
+
 			public LeftPane() {	
 				for(int i=0; i<color.length; ++i) {
 					 int redValue = rand.nextInt(255);
@@ -32,6 +41,7 @@ class LeftPane extends JPanel{
 						// TODO Auto-generated method stub
 						int i=0;
 						Layout.centerPane.removeAll();
+						relationships = new ArrayList<>(2000);
 						contents = textArea.getText().split("\n");
 						Layout.root = new Node(contents[0]);
 						Layout.root.setSize(80,40);
@@ -69,6 +79,7 @@ class LeftPane extends JPanel{
 						newNode.setHorizontalAlignment(SwingConstants.CENTER);
 						Layout.centerPane.add(newNode);
 						node.childs.add(newNode);
+						relate(node,newNode);
 						i = makeTree(newNode,input,i+1);
 						if(i!=0)
 							continue;
@@ -153,4 +164,29 @@ class LeftPane extends JPanel{
 				}
 				
 			}
-		}		
+			
+
+		    void relate(Node parent, Node child) {
+		        relationships.add(new Relationship(parent, child));
+		    }
+	}
+
+	class Relationship {
+	
+	    Node parent;
+	    Node child;
+	
+	    public Relationship(Node parent, Node child) {
+	        this.parent = parent;
+	        this.child = child;
+	    }
+	
+	    public Node getChild() {
+	        return child;
+	    }
+	
+	    public Node getParent() {
+	        return parent;
+	    }
+	
+	}
