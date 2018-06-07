@@ -16,14 +16,85 @@ class CenterPane extends JPanel{
 		    protected void paintComponent(Graphics g) {
 		        super.paintComponent(g);
 		        Graphics2D g2 = (Graphics2D) g.create();
-		        
+		        Point2D p=null;
+		        Point2D c=null;
 		        for (Relationship relationship : LeftPane.relationships) {
+		        	double centerXP = relationship.getParent().getBounds().getCenterX();
+		        	double centerYP = relationship.getParent().getBounds().getCenterY();
+		        	double centerXC = relationship.getChild().getBounds().getCenterX();
+		        	double centerYC = relationship.getChild().getBounds().getCenterY();
 
-		            Point2D p1 = new Point2D.Double(relationship.getParent().getBounds().getCenterX(), relationship.getParent().getBounds().getCenterY());
-		            Point2D p2 = new Point2D.Double(relationship.getChild().getBounds().getCenterX(), relationship.getChild().getBounds().getCenterY());
+		        	//위 y값 
+		        	double point0P = centerYP -(centerYP-relationship.getParent().getBounds().getY());
+		        	//왼쪽측면 x값
+		        	double point1P = centerXP -(centerXP-relationship.getParent().getBounds().getX());
+		        	//오른쪽 측면 x값
+		        	double point2P = centerXP +(centerXP-relationship.getParent().getBounds().getX());
+		        	//아래 y값
+		        	double point3P = centerYP +(centerYP-relationship.getParent().getBounds().getY());
+		        	
+		        	//위 y값 
+		        	double point0C = centerYC -(centerYC-relationship.getChild().getBounds().getY());
+		        	//왼쪽측면 x값
+		        	double point1C = centerXC -(centerXC-relationship.getChild().getBounds().getX());
+		        	//오른쪽 측면 x값
+		        	double point2C = centerXC +(centerXC-relationship.getChild().getBounds().getX());
+		        	//아래 y값
+		        	double point3C = centerYC +(centerYC-relationship.getChild().getBounds().getY());
 
-		            g2.draw(new Line2D.Double(p1, p2));
+		        	switch(relationship.caseIdx){
+		        		case "00":
+		        			p = new Point2D.Double(centerXP, point0P);
+		        			c = new Point2D.Double(point2C,centerYC);
+		        			break;
+		        		case "01":
+		        			p = new Point2D.Double(point1P, centerYP);
+		        			c = new Point2D.Double(point2C,centerYC);
+		        			break;
+		        		case "02":
+		        			p = new Point2D.Double(centerXP, point3P);
+		        			c = new Point2D.Double(point2C,centerYC);
+		        			break;
+		        		case "10":
+		        			p = new Point2D.Double(point2P, centerYP);
+		        			c = new Point2D.Double(point1C,centerYC);
+		        			break;
+		        		case "11":
+		        			p = new Point2D.Double(centerXP, point0P);
+		        			c = new Point2D.Double(point1C,centerYC);
+		        			break;
+		        		case "12":
+		        			p = new Point2D.Double(centerXP, point3P);
+		        			c = new Point2D.Double(point1C,centerYC);
+		        			break;
+		        		case "20":
+		        			p = new Point2D.Double(point1P, centerYP);
+		        			c = new Point2D.Double(centerXC,point0C);
+		        			break;
+		        		case "21":
+		        			p = new Point2D.Double(centerXP, point3P);
+		        			c = new Point2D.Double(centerXC,point0C);
+		        			break;
+		        		case "22":
+		        			p = new Point2D.Double(point2P, centerYP);
+		        			c = new Point2D.Double(centerXC,point0C);
+		        			break;
+		        		case "30":
+		        			p = new Point2D.Double(centerXP, point3P);
+		        			c = new Point2D.Double(point1C,centerYC);
+		        			break;
+		        		case "31":
+		        			p = new Point2D.Double(point2P, centerYP);
+		        			c = new Point2D.Double(point1C,centerYC);
+		        			break;
+		        		case "32":
+		        			p = new Point2D.Double(centerXP, point0P);
+		        			c = new Point2D.Double(point1C,centerYC);
+		        			break;
+		        		
+		        	}
 
+		            g2.draw(new Line2D.Double(p, c));
 		        }
 
 		        g2.dispose();

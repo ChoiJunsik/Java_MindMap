@@ -124,7 +124,7 @@ public class MyToolbarListener implements ActionListener{
 	            //열기 버튼을 누르면	
 	        	Layout.path = fileChooser.getSelectedFile().getPath();
 	            JSONParser parser = new JSONParser();
-				try {
+	            try {
 					obj = parser.parse(new FileReader(Layout.path));
 					Layout.jsonObject = (JSONObject) obj;
 				} catch (FileNotFoundException e) {
@@ -155,6 +155,7 @@ public class MyToolbarListener implements ActionListener{
 				Layout.centerPane.add(Layout.root);
 				Layout.idx = 1;
 				Layout.makeTreeForOpen(Layout.root,Layout.leftPane.contents,i);
+				LeftPane.makeTreeLine(Layout.root, -1);
 				Layout.centerPane.revalidate();
 				Layout.centerPane.repaint();
 				Layout.c.setTitle(Layout.path);
@@ -162,6 +163,8 @@ public class MyToolbarListener implements ActionListener{
 	        }
 		}
 		void forRestart() {
+
+			Layout.c.setTitle("SimpleMindMap");
 			LeftPane.relationships = new ArrayList<>(2000);
 			Layout.leftPane.textArea.setText("");
 			Layout.centerPane.removeAll();

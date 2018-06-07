@@ -37,7 +37,9 @@ public class Layout extends JFrame{
 		splitPane.setContinuousLayout(true); //연속적인 레이아웃 기능 활성화
 		splitPane.setLeftComponent(leftPane); //좌측 컴포넌트 장착
         splitPane2.setContinuousLayout(true);
-        splitPane2.setLeftComponent(new JScrollPane(centerPane));
+        JScrollPane jp = new JScrollPane();
+        jp.setViewportView(centerPane);
+        splitPane2.setLeftComponent(jp);
         splitPane2.setRightComponent(rightPane);
         splitPane.setRightComponent(splitPane2);
 		createMenu();

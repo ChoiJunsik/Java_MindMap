@@ -1,11 +1,8 @@
 import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -15,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-
 
 class LeftPane extends JPanel{
 			JTextArea textArea = new JTextArea();
@@ -39,20 +35,20 @@ class LeftPane extends JPanel{
 				btn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						int i=0;
 						Layout.centerPane.removeAll();
 						relationships = new ArrayList<>(2000);
 						contents = textArea.getText().split("\n");
 						Layout.root = new Node(contents[0]);
-						Layout.root.setSize(80,40);
-						Layout.root.setLocation(560,380);
+						Layout.root.setSize(70,70);
+						Layout.root.setLocation(560,527);
 						Layout.root.setBackground(new Color(0x3C,0xB4,0xFF));
 						Layout.root.color = new Color(0x3C,0xB4,0xFF);
 						Layout.root.setHorizontalAlignment(SwingConstants.CENTER);
 						Layout.centerPane.add(Layout.root);
-						makeTree(Layout.root,contents,i);
+						makeTree(Layout.root,contents,0);
 						makeTreeColor(Layout.root);
-						makeTreeLocation(Layout.root,120,0);
+						makeTreeLocation(Layout.root,150,0);
+						makeTreeLine(Layout.root,-1);
 						Layout.centerPane.revalidate();
 						Layout.centerPane.repaint();
 					}
@@ -79,7 +75,6 @@ class LeftPane extends JPanel{
 						newNode.setHorizontalAlignment(SwingConstants.CENTER);
 						Layout.centerPane.add(newNode);
 						node.childs.add(newNode);
-						relate(node,newNode);
 						i = makeTree(newNode,input,i+1);
 						if(i!=0)
 							continue;
@@ -103,23 +98,23 @@ class LeftPane extends JPanel{
 									node.childs.get(3).setLocation(node.getX()+x,node.getY()+x);
 									break;
 							case 1 :
-								node.childs.get(0).setLocation(node.getX()-x,node.getY()-x);
-								node.childs.get(1).setLocation(node.getX()+x,node.getY()-x);
-								node.childs.get(2).setLocation(node.getX()+x,node.getY()+x);
-								node.childs.get(3).setLocation(node.getX()-x,node.getY()+x);
-								break;
+									node.childs.get(0).setLocation(node.getX()-x,node.getY()-x);
+									node.childs.get(1).setLocation(node.getX()+x,node.getY()-x);
+									node.childs.get(2).setLocation(node.getX()+x,node.getY()+x);
+									node.childs.get(3).setLocation(node.getX()-x,node.getY()+x);
+									break;
 							case 2 :
-								node.childs.get(0).setLocation(node.getX()-x,node.getY()-x);
-								node.childs.get(1).setLocation(node.getX()-x,node.getY()+x);
-								node.childs.get(2).setLocation(node.getX()+x,node.getY()+x);
-								node.childs.get(3).setLocation(node.getX()+x,node.getY()-x);
-								break;
+									node.childs.get(0).setLocation(node.getX()-x,node.getY()-x);
+									node.childs.get(1).setLocation(node.getX()-x,node.getY()+x);
+									node.childs.get(2).setLocation(node.getX()+x,node.getY()+x);
+									node.childs.get(3).setLocation(node.getX()+x,node.getY()-x);
+									break;
 							case 3 :
-								node.childs.get(0).setLocation(node.getX()+x,node.getY()-x);
-								node.childs.get(1).setLocation(node.getX()+x,node.getY()+x);
-								node.childs.get(2).setLocation(node.getX()-x,node.getY()+x);
-								node.childs.get(3).setLocation(node.getX()-x,node.getY()-x);
-								break;
+									node.childs.get(0).setLocation(node.getX()+x,node.getY()-x);
+									node.childs.get(1).setLocation(node.getX()+x,node.getY()+x);
+									node.childs.get(2).setLocation(node.getX()-x,node.getY()+x);
+									node.childs.get(3).setLocation(node.getX()-x,node.getY()-x);
+									break;
 						}
 						node.childs.get(4);
 				}
@@ -127,7 +122,7 @@ class LeftPane extends JPanel{
 					try {
 						int i = 0;
 						while(true) {
-							makeTreeLocation(node.childs.get(i),x-25,i);
+							makeTreeLocation(node.childs.get(i),x-20,i);
 							++i;
 						}
 					}
@@ -165,9 +160,60 @@ class LeftPane extends JPanel{
 				
 			}
 			
+			static void makeTreeLine(Node node,int select) { // 노드이름 '\t'(level) 기준으로 색상, 위치 적용 후 노드이름에서 \t 제거
+				try {
+					switch(select) {
+						case -1:
+								relate(node,node.childs.get(0),"00");
+								relate(node,node.childs.get(1),"10");
+								relate(node,node.childs.get(2),"20");
+								relate(node,node.childs.get(3),"30");
+								break;
+						case 0 :
+								relate(node,node.childs.get(0),"00");
+								relate(node,node.childs.get(1),"01");
+								relate(node,node.childs.get(2),"02");
+								relate(node,node.childs.get(3),"03");
+								break;
+						case 1 :
+								relate(node,node.childs.get(0),"10");
+								relate(node,node.childs.get(1),"11");
+								relate(node,node.childs.get(2),"12");
+								relate(node,node.childs.get(3),"13");
+								break;
+						case 2 :
+								relate(node,node.childs.get(0),"20");
+								relate(node,node.childs.get(1),"21");
+								relate(node,node.childs.get(2),"22");
+								relate(node,node.childs.get(3),"23");
+								break;
+						case 3 :
+								relate(node,node.childs.get(0),"30");
+								relate(node,node.childs.get(1),"31");
+								relate(node,node.childs.get(2),"32");
+								relate(node,node.childs.get(3),"33");
+								break;
+					}
+					node.childs.get(4);
+			}
+			catch(IndexOutOfBoundsException e) {
+				try {
+					int i = 0;
+					while(true) {
+						makeTreeLine(node.childs.get(i),i);
+						++i;
+					}
+				}
+				catch(IndexOutOfBoundsException e2) {
+					return;
+				}
+			}
+			
+		}
+			
 
-		    void relate(Node parent, Node child) {
-		        relationships.add(new Relationship(parent, child));
+		    static void relate(Node parent, Node child,String caseIdx) {
+		        relationships.add(new Relationship(parent, child,caseIdx));
 		    }
 	}
 
@@ -175,10 +221,12 @@ class LeftPane extends JPanel{
 	
 	    Node parent;
 	    Node child;
+	    String caseIdx;
 	
-	    public Relationship(Node parent, Node child) {
+	    public Relationship(Node parent, Node child,String caseIdx) {
 	        this.parent = parent;
 	        this.child = child;
+	        this.caseIdx = caseIdx;
 	    }
 	
 	    public Node getChild() {

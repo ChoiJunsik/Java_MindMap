@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
-import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 
 public class Node extends JLabel{

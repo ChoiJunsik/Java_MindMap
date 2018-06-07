@@ -18,6 +18,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+
 public class MyMenuListener implements MenuListener{
 	public void menuCanceled(MenuEvent e) {}
 	public void menuDeselected(MenuEvent e) {}
@@ -157,6 +158,7 @@ public class MyMenuListener implements MenuListener{
 			Layout.centerPane.add(Layout.root);
 			Layout.idx = 1;
 			Layout.makeTreeForOpen(Layout.root,Layout.leftPane.contents,i);
+			LeftPane.makeTreeLine(Layout.root, -1);
 			Layout.centerPane.revalidate();
 			Layout.centerPane.repaint();
 			Layout.c.setTitle(Layout.path);
@@ -164,6 +166,8 @@ public class MyMenuListener implements MenuListener{
         }
 	}
 	void forRestart() {
+
+		Layout.c.setTitle("SimpleMindMap");
 		LeftPane.relationships = new ArrayList<>(2000);
 		Layout.leftPane.textArea.setText("");
 		Layout.centerPane.removeAll();
