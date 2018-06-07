@@ -76,7 +76,7 @@ class MouseListener extends MouseAdapter{
 		Node node = (Node) e.getSource();
 		//RightPane.getJTextField().setText(node.getText());
 		if(name.charAt(0)=='\t')
-			RightPane.immutable.setText(name.split("\t")[1]);
+			RightPane.immutable.setText(name.replace("\t", ""));
 		else
 			RightPane.immutable.setText(name);
 			RightPane.x.setText(Double.toString(node.getX()));
@@ -106,10 +106,8 @@ class MouseListener extends MouseAdapter{
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			String searchingName;
-			if(name.charAt(0)=='\t')
-				searchingName = name.split("\t")[1];
-			else
-				searchingName = name;
+
+			searchingName = name.replace("\t", "");
  			try { 
 				Desktop.getDesktop().browse(new URI("https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query="+searchingName)); 
 				} 
