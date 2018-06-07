@@ -148,6 +148,7 @@ public class MyMenuListener implements MenuListener{
 			Layout.leftPane.textArea.setText(toTextArea);
 			int i=0;
 			Layout.centerPane.removeAll();
+			LeftPane.relationships = new ArrayList<>(2000);
 			Layout.leftPane.contents = Layout.leftPane.textArea.getText().split("\n");
 			Layout.root = new Node(Layout.leftPane.contents[0]);
 			Layout.root.setSize(80,40);

@@ -143,6 +143,7 @@ public class MyToolbarListener implements ActionListener{
 					toTextArea += ((JSONArray) Layout.jsonObject.get(Integer.toString(i))).get(0)+"\n";
 				}
 				Layout.leftPane.textArea.setText(toTextArea);
+				LeftPane.relationships = new ArrayList<>(2000);
 				int i=0;
 				Layout.centerPane.removeAll();
 				Layout.leftPane.contents = Layout.leftPane.textArea.getText().split("\n");

@@ -164,10 +164,10 @@ class LeftPane extends JPanel{
 				try {
 					switch(select) {
 						case -1:
-								relate(node,node.childs.get(0),"00");
-								relate(node,node.childs.get(1),"10");
-								relate(node,node.childs.get(2),"20");
-								relate(node,node.childs.get(3),"30");
+								relate(node,node.childs.get(0),"-10");
+								relate(node,node.childs.get(1),"-11");
+								relate(node,node.childs.get(2),"-12");
+								relate(node,node.childs.get(3),"-13");
 								break;
 						case 0 :
 								relate(node,node.childs.get(0),"00");

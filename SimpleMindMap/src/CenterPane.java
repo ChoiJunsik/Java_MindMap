@@ -43,11 +43,27 @@ class CenterPane extends JPanel{
 		        	double point3C = centerYC +(centerYC-relationship.getChild().getBounds().getY());
 
 		        	switch(relationship.caseIdx){
-		        		case "00":
+		        		case "-10":
+		        			p = new Point2D.Double(centerXP, point0P);
+		        			c = new Point2D.Double(point2C,centerYC);
+	        				break;
+		        		case "-11":
+		        			p = new Point2D.Double(point2P, centerYP);
+	        				c = new Point2D.Double(point1C,centerYC);
+	        				break;
+		        		case "-12":
+		        			p = new Point2D.Double(point1P, centerYP);
+		        			c = new Point2D.Double(centerXC,point0C);
+	        				break;
+		        		case "-13":
+		        			p = new Point2D.Double(centerXP, point3P);
+	        				c = new Point2D.Double(point1C,centerYC);
+	        			break;
+			        	case "01":
 		        			p = new Point2D.Double(centerXP, point0P);
 		        			c = new Point2D.Double(point2C,centerYC);
 		        			break;
-		        		case "01":
+		        		case "00":
 		        			p = new Point2D.Double(point1P, centerYP);
 		        			c = new Point2D.Double(point2C,centerYC);
 		        			break;
@@ -55,11 +71,11 @@ class CenterPane extends JPanel{
 		        			p = new Point2D.Double(centerXP, point3P);
 		        			c = new Point2D.Double(point2C,centerYC);
 		        			break;
-		        		case "10":
+		        		case "11":
 		        			p = new Point2D.Double(point2P, centerYP);
 		        			c = new Point2D.Double(point1C,centerYC);
 		        			break;
-		        		case "11":
+		        		case "10":
 		        			p = new Point2D.Double(centerXP, point0P);
 		        			c = new Point2D.Double(point1C,centerYC);
 		        			break;
@@ -79,7 +95,7 @@ class CenterPane extends JPanel{
 		        			p = new Point2D.Double(point2P, centerYP);
 		        			c = new Point2D.Double(centerXC,point0C);
 		        			break;
-		        		case "30":
+		        		case "32":
 		        			p = new Point2D.Double(centerXP, point3P);
 		        			c = new Point2D.Double(point1C,centerYC);
 		        			break;
@@ -87,7 +103,7 @@ class CenterPane extends JPanel{
 		        			p = new Point2D.Double(point2P, centerYP);
 		        			c = new Point2D.Double(point1C,centerYC);
 		        			break;
-		        		case "32":
+		        		case "30":
 		        			p = new Point2D.Double(centerXP, point0P);
 		        			c = new Point2D.Double(point1C,centerYC);
 		        			break;
