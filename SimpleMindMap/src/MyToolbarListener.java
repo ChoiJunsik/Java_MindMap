@@ -24,19 +24,19 @@ public class MyToolbarListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		JButton select = (JButton)e.getSource();
 		switch(select.getText()) {
-			case "ÀúÀå":
+			case "ì €ì¥":
 				forSave();
 				break;
-			case "¿­±â":
+			case "ì—´ê¸°":
 				forOpen();
 				break;
-			case "´Ù¸¥ ÀÌ¸§À¸·Î ÀúÀå":
+			case "ë‹¤ë¥¸ ì´ë¦„ìœ¼ë¡œ ì €ì¥":
 				forSaveAs();
 				break;
-			case "»õ·Î ¸¸µé±â":
+			case "ìƒˆë¡œ ë§Œë“¤ê¸°":
 				forRestart();
 				break;
-			case "´İ±â":
+			case "ì¢…ë£Œ":
 				forExit();
 				break;
 		}
@@ -51,18 +51,19 @@ public class MyToolbarListener implements ActionListener{
 		    	Layout.saveCnt = true;
 		        if( returnVal == JFileChooser.APPROVE_OPTION)
 		        {
-		            //¿­±â ¹öÆ°À» ´©¸£¸é	
+		            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 		        	Layout.path = fileChooser.getSelectedFile().toString() + "." + fileChooser.getFileFilter().getDescription();
 		            String [] contents = Layout.leftPane.textArea.getText().split("\n");
 		            Layout.jsonObject = new JSONObject();
-					Layout.getAttribute(Layout.root); // ¹è¿­ ÀÎµ¦½º 0: ÀÌ¸§ , 1: x, 2: y, 3: w, 4: h
+					Layout.getAttribute(Layout.root); // ï¿½è¿­ ï¿½Îµï¿½ï¿½ï¿½ 0: ï¿½Ì¸ï¿½ , 1: x, 2: y, 3: w, 4: h
+					Layout.idx = 0;
 					try (FileWriter file = new FileWriter(Layout.path)) {
 						file.write(Layout.jsonObject.toJSONString());
-						JOptionPane.showMessageDialog(null, "ÀúÀåµÇ¾ú½À´Ï´Ù.");
+						JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 						Layout.c.setTitle(Layout.path);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
-						System.out.println("ÆÄÀÏÀúÀå ½ÇÆĞ");
+						System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 					}
 		        }
 		        else
@@ -71,14 +72,15 @@ public class MyToolbarListener implements ActionListener{
 		    else {
 		    	String [] contents = Layout.leftPane.textArea.getText().split("\n");
 		    	Layout.jsonObject = new JSONObject();
-		    	Layout.getAttribute(Layout.root); // ¹è¿­ ÀÎµ¦½º 0: ÀÌ¸§ , 1: x, 2: y, 3: w, 4: h
+		    	Layout.getAttribute(Layout.root); // ï¿½è¿­ ï¿½Îµï¿½ï¿½ï¿½ 0: ï¿½Ì¸ï¿½ , 1: x, 2: y, 3: w, 4: h
+		    	Layout.idx = 0;
 				try (FileWriter file = new FileWriter(Layout.path)) {
 					file.write(Layout.jsonObject.toJSONString());
-					JOptionPane.showMessageDialog(null, "ÀúÀåµÇ¾ú½À´Ï´Ù.");
+					JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 					Layout.c.setTitle(Layout.path);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
-					System.out.println("ÆÄÀÏÀúÀå ½ÇÆĞ");
+					System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 				}
 		    }
 			
@@ -93,19 +95,20 @@ public class MyToolbarListener implements ActionListener{
 			int returnVal = fileChooser.showSaveDialog(Layout.c);
 	        if( returnVal == JFileChooser.APPROVE_OPTION)
 	        {
-	            //¿­±â ¹öÆ°À» ´©¸£¸é	
+	            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 	        	Layout.path = fileChooser.getSelectedFile().toString() + "." + fileChooser.getFileFilter().getDescription();
 	            String [] contents = Layout.leftPane.textArea.getText().split("\n");
 	            Layout.jsonObject = new JSONObject();
-	            Layout.getAttribute(Layout.root); // ¹è¿­ ÀÎµ¦½º 0: ÀÌ¸§ , 1: x, 2: y, 3: w, 4: h
+	            Layout.getAttribute(Layout.root); // ï¿½è¿­ ï¿½Îµï¿½ï¿½ï¿½ 0: ï¿½Ì¸ï¿½ , 1: x, 2: y, 3: w, 4: h
+	            Layout.idx = 0;
 				try (FileWriter file = new FileWriter(Layout.path)) {
 					file.write(Layout.jsonObject.toJSONString());
-					JOptionPane.showMessageDialog(null, "ÀúÀåµÇ¾ú½À´Ï´Ù.");
+					JOptionPane.showMessageDialog(null, "ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 					Layout.c.setTitle(Layout.path);
 					Layout.saveCnt=true;
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
-					System.out.println("ÆÄÀÏÀúÀå ½ÇÆĞ");
+					System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 				}
 	        }
 	        else
@@ -121,7 +124,7 @@ public class MyToolbarListener implements ActionListener{
 			int returnVal = fileChooser.showOpenDialog(Layout.c);
 	        if( returnVal == JFileChooser.APPROVE_OPTION)
 	        {
-	            //¿­±â ¹öÆ°À» ´©¸£¸é	
+	            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	
 	        	Layout.path = fileChooser.getSelectedFile().getPath();
 	            JSONParser parser = new JSONParser();
 	            try {
@@ -156,6 +159,7 @@ public class MyToolbarListener implements ActionListener{
 				Layout.centerPane.add(Layout.root);
 				Layout.idx = 1;
 				Layout.makeTreeForOpen(Layout.root,Layout.leftPane.contents,i);
+				Layout.idx = 0;
 				LeftPane.makeTreeLine(Layout.root, -1);
 				Layout.centerPane.revalidate();
 				Layout.centerPane.repaint();

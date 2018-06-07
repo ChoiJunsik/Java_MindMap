@@ -43,7 +43,7 @@ class RightPane extends JPanel{
 				jp.add(new JLabel("Color: ",SwingConstants.CENTER));
 				c.setHorizontalAlignment( JTextField.CENTER);
 				jp.add(c);				
-				JButton btn = new JButton("º¯°æ");
+				JButton btn = new JButton("ë³€ê²½");
 				btn.addActionListener(new ActionListener() {
 					
 					@Override

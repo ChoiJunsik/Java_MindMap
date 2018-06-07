@@ -25,19 +25,19 @@ public class MyMenuListener implements MenuListener{
 	public void menuSelected(MenuEvent e) {
 		JMenu select = (JMenu)e.getSource();
 		switch(select.getText()) {
-			case "ÀúÀå":
+			case "ì €ì¥":
 				forSave();
 				break;
-			case "¿­±â":
+			case "ì—´ê¸°":
 				forOpen();
 				break;
-			case "´Ù¸¥ ÀÌ¸§À¸·Î ÀúÀå":
+			case "ë‹¤ë¥¸ ì´ë¦„ìœ¼ë¡œ ì €ì¥":
 				forSaveAs();
 				break;
-			case "»õ·Î ¸¸µé±â":
+			case "ìƒˆë¡œ ë§Œë“¤ê¸°":
 				forRestart();
 				break;
-			case "´İ±â":
+			case "ë‹«ê¸°":
 				forExit();
 				break;
 		}
@@ -54,18 +54,19 @@ public class MyMenuListener implements MenuListener{
 	    	Layout.saveCnt = true;
 	        if( returnVal == JFileChooser.APPROVE_OPTION)
 	        {
-	            //¿­±â ¹öÆ°À» ´©¸£¸é	
+	            //ì—´ê¸° ë²„íŠ¼ì„ ëˆ„ë¥´ë©´	
 	        	Layout.path = fileChooser.getSelectedFile().toString() + "." + fileChooser.getFileFilter().getDescription();
 	            String [] contents = Layout.leftPane.textArea.getText().split("\n");
 	            Layout.jsonObject = new JSONObject();
-				Layout.getAttribute(Layout.root); // ¹è¿­ ÀÎµ¦½º 0: ÀÌ¸§ , 1: x, 2: y, 3: w, 4: h
+				Layout.getAttribute(Layout.root); // ë°°ì—´ ì¸ë±ìŠ¤ 0: ì´ë¦„ , 1: x, 2: y, 3: w, 4: h
+				Layout.idx=0;
 				try (FileWriter file = new FileWriter(Layout.path)) {
 					file.write(Layout.jsonObject.toJSONString());
-					JOptionPane.showMessageDialog(null, "ÀúÀåµÇ¾ú½À´Ï´Ù.");
+					JOptionPane.showMessageDialog(null, "ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤.");
 					Layout.c.setTitle(Layout.path);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
-					System.out.println("ÆÄÀÏÀúÀå ½ÇÆĞ");
+					System.out.println("íŒŒì¼ì €ì¥ ì‹¤íŒ¨");
 				}
 	        }
 	        else
@@ -74,14 +75,15 @@ public class MyMenuListener implements MenuListener{
 	    else {
 	    	String [] contents = Layout.leftPane.textArea.getText().split("\n");
 	    	Layout.jsonObject = new JSONObject();
-	    	Layout.getAttribute(Layout.root); // ¹è¿­ ÀÎµ¦½º 0: ÀÌ¸§ , 1: x, 2: y, 3: w, 4: h
+	    	Layout.getAttribute(Layout.root); // ë°°ì—´ ì¸ë±ìŠ¤ 0: ì´ë¦„ , 1: x, 2: y, 3: w, 4: h
+	    	Layout.idx=0;
 			try (FileWriter file = new FileWriter(Layout.path)) {
 				file.write(Layout.jsonObject.toJSONString());
-				JOptionPane.showMessageDialog(null, "ÀúÀåµÇ¾ú½À´Ï´Ù.");
+				JOptionPane.showMessageDialog(null, "ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤.");
 				Layout.c.setTitle(Layout.path);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
-				System.out.println("ÆÄÀÏÀúÀå ½ÇÆĞ");
+				System.out.println("íŒŒì¼ì €ì¥ ì‹¤íŒ¨");
 			}
 	    }
 		
@@ -91,24 +93,24 @@ public class MyMenuListener implements MenuListener{
 		JFileChooser fileChooser = new JFileChooser();
 	    Object obj;
 	    FileNameExtensionFilter filter =  new FileNameExtensionFilter("json","json");
-	    Layout.idx = 0;
 	    fileChooser.setFileFilter(filter);
 		int returnVal = fileChooser.showSaveDialog(Layout.c);
         if( returnVal == JFileChooser.APPROVE_OPTION)
         {
-            //¿­±â ¹öÆ°À» ´©¸£¸é	
+            //ì—´ê¸° ë²„íŠ¼ì„ ëˆ„ë¥´ë©´	
         	Layout.path = fileChooser.getSelectedFile().toString() + "." + fileChooser.getFileFilter().getDescription();
             String [] contents = Layout.leftPane.textArea.getText().split("\n");
             Layout.jsonObject = new JSONObject();
-            Layout.getAttribute(Layout.root); // ¹è¿­ ÀÎµ¦½º 0: ÀÌ¸§ , 1: x, 2: y, 3: w, 4: h
+            Layout.getAttribute(Layout.root); // ë°°ì—´ ì¸ë±ìŠ¤ 0: ì´ë¦„ , 1: x, 2: y, 3: w, 4: h
+            Layout.idx = 0;
 			try (FileWriter file = new FileWriter(Layout.path)) {
 				file.write(Layout.jsonObject.toJSONString());
-				JOptionPane.showMessageDialog(null, "ÀúÀåµÇ¾ú½À´Ï´Ù.");
+				JOptionPane.showMessageDialog(null, "ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤.");
 				Layout.c.setTitle(Layout.path);
 				Layout.saveCnt=true;
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
-				System.out.println("ÆÄÀÏÀúÀå ½ÇÆĞ");
+				System.out.println("íŒŒì¼ì €ì¥ ì‹¤íŒ¨");
 			}
         }
         else
@@ -124,7 +126,7 @@ public class MyMenuListener implements MenuListener{
 		int returnVal = fileChooser.showOpenDialog(Layout.c);
         if( returnVal == JFileChooser.APPROVE_OPTION)
         {
-            //¿­±â ¹öÆ°À» ´©¸£¸é	
+            //ì—´ê¸° ë²„íŠ¼ì„ ëˆ„ë¥´ë©´	
         	Layout.path = fileChooser.getSelectedFile().getPath();
             JSONParser parser = new JSONParser();
 			try {
@@ -159,6 +161,7 @@ public class MyMenuListener implements MenuListener{
 			Layout.centerPane.add(Layout.root);
 			Layout.idx = 1;
 			Layout.makeTreeForOpen(Layout.root,Layout.leftPane.contents,i);
+			Layout.idx = 0;
 			LeftPane.makeTreeLine(Layout.root, -1);
 			Layout.centerPane.revalidate();
 			Layout.centerPane.repaint();

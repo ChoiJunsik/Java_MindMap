@@ -31,7 +31,7 @@ class LeftPane extends JPanel{
 				setLayout(new BorderLayout());
 				textArea.setTabSize(2);
 				add(new JScrollPane(textArea),BorderLayout.CENTER);
-				btn = new JButton("Àû¿ë");
+				btn = new JButton("ì ìš©");
 				btn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
@@ -88,7 +88,7 @@ class LeftPane extends JPanel{
 
 			}
 			
-			void makeTreeLocation(Node node,int x,int select) { // ³ëµåÀÌ¸§ '\t'(level) ±âÁØÀ¸·Î »ö»ó, À§Ä¡ Àû¿ë ÈÄ ³ëµåÀÌ¸§¿¡¼­ \t Á¦°Å
+			void makeTreeLocation(Node node,int x,int select) { // ë…¸ë“œì´ë¦„ '\t'(level) ê¸°ì¤€ìœ¼ë¡œ ìƒ‰ìƒ, ìœ„ì¹˜ ì ìš© í›„ ë…¸ë“œì´ë¦„ì—ì„œ \t ì œê±°
 				try {
 						switch(select) {
 							case 0 :
@@ -133,7 +133,7 @@ class LeftPane extends JPanel{
 				
 			} 
 			
-			void makeTreeColor(Node node) { // ³ëµåÀÌ¸§ '\t'(level) ±âÁØÀ¸·Î »ö»ó, À§Ä¡ Àû¿ë ÈÄ ³ëµåÀÌ¸§¿¡¼­ \t Á¦°Å
+			void makeTreeColor(Node node) { // ë…¸ë“œì´ë¦„ '\t'(level) ê¸°ì¤€ìœ¼ë¡œ ìƒ‰ìƒ, ìœ„ì¹˜ ì ìš© í›„ ë…¸ë“œì´ë¦„ì—ì„œ \t ì œê±°
 				try {
 					int i=0,level;
 					while(true) {
@@ -160,7 +160,7 @@ class LeftPane extends JPanel{
 				
 			}
 			
-			static void makeTreeLine(Node node,int select) { // ³ëµåÀÌ¸§ '\t'(level) ±âÁØÀ¸·Î »ö»ó, À§Ä¡ Àû¿ë ÈÄ ³ëµåÀÌ¸§¿¡¼­ \t Á¦°Å
+			static void makeTreeLine(Node node,int select) { // ë…¸ë“œì´ë¦„ '\t'(level) ê¸°ì¤€ìœ¼ë¡œ ìƒ‰ìƒ, ìœ„ì¹˜ ì ìš© í›„ ë…¸ë“œì´ë¦„ì—ì„œ \t ì œê±°
 				try {
 					switch(select) {
 						case -1:

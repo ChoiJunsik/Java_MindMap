@@ -24,22 +24,22 @@ class CenterPane extends JPanel{
 		        	double centerXC = relationship.getChild().getBounds().getCenterX();
 		        	double centerYC = relationship.getChild().getBounds().getCenterY();
 
-		        	//À§ y°ª 
+		        	//ìœ„ yê°’ 
 		        	double point0P = centerYP -(centerYP-relationship.getParent().getBounds().getY());
-		        	//¿ÞÂÊÃø¸é x°ª
+		        	//ì™¼ìª½ì¸¡ë©´ xê°’
 		        	double point1P = centerXP -(centerXP-relationship.getParent().getBounds().getX());
-		        	//¿À¸¥ÂÊ Ãø¸é x°ª
+		        	//ì˜¤ë¥¸ìª½ ì¸¡ë©´ xê°’
 		        	double point2P = centerXP +(centerXP-relationship.getParent().getBounds().getX());
-		        	//¾Æ·¡ y°ª
+		        	//ì•„ëž˜ yê°’
 		        	double point3P = centerYP +(centerYP-relationship.getParent().getBounds().getY());
 		        	
-		        	//À§ y°ª 
+		        	//ìœ„ yê°’ 
 		        	double point0C = centerYC -(centerYC-relationship.getChild().getBounds().getY());
-		        	//¿ÞÂÊÃø¸é x°ª
+		        	//ì™¼ìª½ì¸¡ë©´ xê°’
 		        	double point1C = centerXC -(centerXC-relationship.getChild().getBounds().getX());
-		        	//¿À¸¥ÂÊ Ãø¸é x°ª
+		        	//ì˜¤ë¥¸ìª½ ì¸¡ë©´ xê°’
 		        	double point2C = centerXC +(centerXC-relationship.getChild().getBounds().getX());
-		        	//¾Æ·¡ y°ª
+		        	//ì•„ëž˜ yê°’
 		        	double point3C = centerYC +(centerYC-relationship.getChild().getBounds().getY());
 
 		        	switch(relationship.caseIdx){
