@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
@@ -12,6 +14,14 @@ class CenterPane extends JPanel{
 				setBackground(new Color(0xFF,0xE6,0xEB));
 				setLayout(null);
 				setPreferredSize(new Dimension(3000, 2000));
+		        addMouseListener(new MouseAdapter() {
+		            @Override
+		            public void mousePressed(MouseEvent me) {
+
+		                requestFocus();
+		                repaint();
+		            }
+		        });
 			}
 		    protected void paintComponent(Graphics g) {
 		        super.paintComponent(g);
