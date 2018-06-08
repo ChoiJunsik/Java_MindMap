@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Point;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,6 +40,8 @@ public class Layout extends JFrame{
         splitPane2.setContinuousLayout(true);
         JScrollPane jp = new JScrollPane();
         jp.setViewportView(centerPane);
+        jp.getViewport().setViewPosition(new Point(850,550));
+
         splitPane2.setLeftComponent(jp);
         splitPane2.setRightComponent(rightPane);
         splitPane.setRightComponent(splitPane2);

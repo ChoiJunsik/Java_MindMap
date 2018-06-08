@@ -40,7 +40,7 @@ class LeftPane extends JPanel{
 						contents = textArea.getText().split("\n");
 						Layout.root = new Node(contents[0]);
 						Layout.root.setSize(70,70);
-						Layout.root.setLocation(560,527);
+						Layout.root.setLocation(1360,900);
 						Layout.root.setBackground(new Color(0x3C,0xB4,0xFF));
 						Layout.root.color = new Color(0x3C,0xB4,0xFF);
 						Layout.root.setHorizontalAlignment(SwingConstants.CENTER);
@@ -116,7 +116,7 @@ class LeftPane extends JPanel{
 									node.childs.get(3).setLocation(node.getX()-x,node.getY()-x);
 									break;
 						}
-						node.childs.get(4);
+						throw new IndexOutOfBoundsException();
 				}
 				catch(IndexOutOfBoundsException e) {
 					try {

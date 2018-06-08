@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -84,8 +85,9 @@ class MouseListener extends MouseAdapter{
 			RightPane.w.setText(Double.toString(node.getWidth()));
 			RightPane.h.setText(Double.toString(node.getHeight()));
 			RightPane.c.setText(Integer.toHexString(node.color.getRGB()).substring(2));
-
+			
 			RightPane.node = node;
+			
 		//Layout.c.repaint();	
 	}
 
