@@ -59,11 +59,11 @@ public class MyToolbarListener implements ActionListener{
 					Layout.idx = 0;
 					try (FileWriter file = new FileWriter(Layout.path)) {
 						file.write(Layout.jsonObject.toJSONString());
-						JOptionPane.showMessageDialog(null, "����Ǿ����ϴ�.");
+						JOptionPane.showMessageDialog(null, "저장되었습니다.");
 						Layout.c.setTitle(Layout.path);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
-						System.out.println("�������� ����");
+						System.out.println("파일저장 실패");
 					}
 		        }
 		        else
@@ -76,11 +76,11 @@ public class MyToolbarListener implements ActionListener{
 		    	Layout.idx = 0;
 				try (FileWriter file = new FileWriter(Layout.path)) {
 					file.write(Layout.jsonObject.toJSONString());
-					JOptionPane.showMessageDialog(null, "����Ǿ����ϴ�.");
+					JOptionPane.showMessageDialog(null, "저장되었습니다.");
 					Layout.c.setTitle(Layout.path);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
-					System.out.println("�������� ����");
+					System.out.println("파일저장 실패");
 				}
 		    }
 			
@@ -103,12 +103,12 @@ public class MyToolbarListener implements ActionListener{
 	            Layout.idx = 0;
 				try (FileWriter file = new FileWriter(Layout.path)) {
 					file.write(Layout.jsonObject.toJSONString());
-					JOptionPane.showMessageDialog(null, "����Ǿ����ϴ�.");
+					JOptionPane.showMessageDialog(null, "저장되었습니다.");
 					Layout.c.setTitle(Layout.path);
 					Layout.saveCnt=true;
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
-					System.out.println("�������� ����");
+					System.out.println("파일저장 실패");
 				}
 	        }
 	        else
