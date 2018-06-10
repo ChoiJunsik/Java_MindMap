@@ -18,7 +18,7 @@ class LeftPane extends JPanel{
 			String [] contents;Random rand = new Random();
 			Color [] color = new Color[100];
 			JButton btn;
-		    static List<Relationship> relationships = new ArrayList<>(2000);
+		    static List<Relationship> relationships = new ArrayList<>();
 
 			public LeftPane() {	
 				for(int i=0; i<color.length; ++i) {
@@ -36,7 +36,7 @@ class LeftPane extends JPanel{
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
 						Layout.centerPane.removeAll();
-						relationships = new ArrayList<>(2000);
+						relationships = new ArrayList<>();
 						contents = textArea.getText().split("\n");
 						Layout.root = new Node(contents[0]);
 						Layout.root.setSize(70,70);

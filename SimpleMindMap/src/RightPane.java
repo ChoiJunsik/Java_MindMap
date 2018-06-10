@@ -54,6 +54,7 @@ class RightPane extends JPanel{
 						node.setSize((int)Double.parseDouble(w.getText()), (int)Double.parseDouble(h.getText()));
 						String color = (String)c.getText();
 						node.setBackground(new Color(Integer.valueOf(color.substring(0,2),16),Integer.valueOf(color.substring(2,4),16),Integer.valueOf(color.substring(4),16)));
+						node.color =new Color(Integer.valueOf(color.substring(0,2),16),Integer.valueOf(color.substring(2,4),16),Integer.valueOf(color.substring(4),16));
 				        node.getParent().repaint();
 					}
 				});

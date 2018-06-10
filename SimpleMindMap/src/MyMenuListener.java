@@ -150,7 +150,7 @@ public class MyMenuListener implements MenuListener{
 			Layout.leftPane.textArea.setText(toTextArea);
 			int i=0;
 			Layout.centerPane.removeAll();
-			LeftPane.relationships = new ArrayList<>(2000);
+			LeftPane.relationships = new ArrayList<>();
 			Layout.leftPane.contents = Layout.leftPane.textArea.getText().split("\n");
 			Layout.root = new Node(Layout.leftPane.contents[0]);
 			Layout.root.setSize(80,40);
@@ -172,7 +172,7 @@ public class MyMenuListener implements MenuListener{
 	void forRestart() {
 
 		Layout.c.setTitle("SimpleMindMap");
-		LeftPane.relationships = new ArrayList<>(2000);
+		LeftPane.relationships = new ArrayList<>();
 		Layout.leftPane.textArea.setText("");
 		Layout.centerPane.removeAll();
 		Layout.rightPane.immutable.setText("");

@@ -146,7 +146,7 @@ public class MyToolbarListener implements ActionListener{
 					toTextArea += ((JSONArray) Layout.jsonObject.get(Integer.toString(i))).get(0)+"\n";
 				}
 				Layout.leftPane.textArea.setText(toTextArea);
-				LeftPane.relationships = new ArrayList<>(2000);
+				LeftPane.relationships = new ArrayList<>();
 				int i=0;
 				Layout.centerPane.removeAll();
 				Layout.leftPane.contents = Layout.leftPane.textArea.getText().split("\n");
@@ -170,7 +170,7 @@ public class MyToolbarListener implements ActionListener{
 		void forRestart() {
 
 			Layout.c.setTitle("SimpleMindMap");
-			LeftPane.relationships = new ArrayList<>(2000);
+			LeftPane.relationships = new ArrayList<>();
 			Layout.leftPane.textArea.setText("");
 			Layout.centerPane.removeAll();
 			Layout.rightPane.immutable.setText("");
