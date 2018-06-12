@@ -196,7 +196,6 @@ class MouseListener extends MouseAdapter{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		setBackground(Color.BLACK);
 	}
 
 	@Override
@@ -260,11 +259,15 @@ class ResizableBorder implements Border {
     @Override
     public void paintBorder(Component component, Graphics g, int x, int y,
             int w, int h) {
-        
         g.setColor(Color.black);
         g.drawRect(x + (dist-7) / 2, y + (dist-7) / 2, w - (dist-7), h - (dist-7));
 
+		Node node = (Node) component;
         if (component.hasFocus()) {
+
+    		String inversion = Integer.toHexString(node.color.getRGB()).substring(2);
+    		Color newColor = new Color(255-Integer.valueOf(inversion.substring(0,2),16),255-Integer.valueOf(inversion.substring(2,4),16),255-Integer.valueOf(inversion.substring(4),16));
+    		node.setBackground(newColor);
 
             for (int i = 0; i < locations.length; i++) {
                 Rectangle rect = getRectangle(x, y, w, h, locations[i]);
@@ -274,6 +277,11 @@ class ResizableBorder implements Border {
                 g.drawRect(rect.x, rect.y, rect.width - 1, rect.height - 1);
             }
         }
+        else {
+        	Layout.centerPane.repaint();
+        	node.setBackground(node.color);
+        }
+        	
     }
 
     private Rectangle getRectangle(int x, int y, int w, int h, int location) {

@@ -90,30 +90,36 @@ class LeftPane extends JPanel{
 			
 			void makeTreeLocation(Node node,int x,int select) { // 노드이름 '\t'(level) 기준으로 색상, 위치 적용 후 노드이름에서 \t 제거
 				try {
+						
+						int minusXP = node.getX()-x;
+						int plusXP = node.getX()+x;
+						if(minusXP<850 || plusXP>1970) {
+								minusXP = 850;
+								plusXP = 1970;}
 						switch(select) {
 							case 0 :
-									node.childs.get(0).setLocation(node.getX()-x,node.getY()-x);
-									node.childs.get(1).setLocation(node.getX()+x,node.getY()-x);
-									node.childs.get(2).setLocation(node.getX()-x,node.getY()+x);
-									node.childs.get(3).setLocation(node.getX()+x,node.getY()+x);
+									node.childs.get(0).setLocation(minusXP,node.getY()-x);
+									node.childs.get(1).setLocation(plusXP,node.getY()-x);
+									node.childs.get(2).setLocation(minusXP,node.getY()+x);
+									node.childs.get(3).setLocation(plusXP,node.getY()+x);
 									break;
 							case 1 :
-									node.childs.get(0).setLocation(node.getX()-x,node.getY()-x);
-									node.childs.get(1).setLocation(node.getX()+x,node.getY()-x);
-									node.childs.get(2).setLocation(node.getX()+x,node.getY()+x);
-									node.childs.get(3).setLocation(node.getX()-x,node.getY()+x);
+									node.childs.get(0).setLocation(minusXP,node.getY()-x);
+									node.childs.get(1).setLocation(plusXP,node.getY()-x);
+									node.childs.get(2).setLocation(plusXP,node.getY()+x);
+									node.childs.get(3).setLocation(minusXP,node.getY()+x);
 									break;
 							case 2 :
-									node.childs.get(0).setLocation(node.getX()-x,node.getY()-x);
-									node.childs.get(1).setLocation(node.getX()-x,node.getY()+x);
-									node.childs.get(2).setLocation(node.getX()+x,node.getY()+x);
-									node.childs.get(3).setLocation(node.getX()+x,node.getY()-x);
+									node.childs.get(0).setLocation(minusXP,node.getY()-x);
+									node.childs.get(1).setLocation(minusXP,node.getY()+x);
+									node.childs.get(2).setLocation(plusXP,node.getY()+x);
+									node.childs.get(3).setLocation(plusXP,node.getY()-x);
 									break;
 							case 3 :
-									node.childs.get(0).setLocation(node.getX()+x,node.getY()-x);
-									node.childs.get(1).setLocation(node.getX()+x,node.getY()+x);
-									node.childs.get(2).setLocation(node.getX()-x,node.getY()+x);
-									node.childs.get(3).setLocation(node.getX()-x,node.getY()-x);
+									node.childs.get(0).setLocation(plusXP,node.getY()-x);
+									node.childs.get(1).setLocation(plusXP,node.getY()+x);
+									node.childs.get(2).setLocation(minusXP,node.getY()+x);
+									node.childs.get(3).setLocation(minusXP,node.getY()-x);
 									break;
 						}
 						throw new IndexOutOfBoundsException();
